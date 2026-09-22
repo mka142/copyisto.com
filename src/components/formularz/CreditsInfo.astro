@@ -1,0 +1,110 @@
+---
+import Eyebrow from '@/components/primitives/Eyebrow.astro';
+import { credits } from '@/content/formularz';
+import { anchors } from '@/lib/routes';
+---
+
+<section class="credits-info gutter" id="kredyty">
+  <div class="credits-card">
+    <div class="credits-intro">
+      <Eyebrow class="credits-info-eyebrow">{credits.eyebrow}</Eyebrow>
+      <h2 class="display-sm credits-info-title">{credits.title}</h2>
+      <p class="credits-info-body">{credits.body}</p>
+    </div>
+
+    <ul class="credits-points">
+      {
+        credits.points.map((point) => (
+          <li class="credits-point">
+            <span class="ornament ornament-xs credits-point-num">{point.number}</span>
+            <p class="credits-point-body">{point.body}</p>
+          </li>
+        ))
+      }
+      <li class="credits-footnote">
+        {credits.footnoteLead}
+        <a href={anchors.creditsClause} class="prose-link">{credits.footnoteLink}</a>
+        {credits.footnoteTail}
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .credits-info {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-block: var(--space-section-sm);
+    scroll-margin-top: 24px;
+  }
+
+  .credits-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: start;
+    gap: var(--space-column-sm);
+    padding: var(--space-card);
+    border: 1px solid var(--color-rule-25);
+    background: var(--color-field);
+  }
+
+  .credits-intro {
+    min-width: 0;
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.credits-info-eyebrow) {
+    margin-bottom: 16px;
+  }
+
+  .credits-info-title {
+    margin-bottom: 14px;
+  }
+
+  .credits-info-body {
+    max-width: 44ch;
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-lg);
+    line-height: 1.68;
+    text-wrap: pretty;
+  }
+
+  .credits-points {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+    min-width: 0;
+  }
+
+  .credits-point {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+    padding-top: 16px;
+    border-top: 1px solid var(--color-rule-18);
+  }
+
+  .credits-point-num {
+    flex-shrink: 0;
+    min-width: 26px;
+  }
+
+  .credits-point-body {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-body);
+    line-height: 1.62;
+  }
+
+  .credits-footnote {
+    padding-top: 16px;
+    border-top: 1px solid var(--color-rule-18);
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    line-height: 1.6;
+  }
+</style>

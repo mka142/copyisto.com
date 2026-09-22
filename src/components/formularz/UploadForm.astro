@@ -1,0 +1,282 @@
+---
+import Button from '@/components/primitives/Button.astro';
+import { uploadForm } from '@/content/formularz';
+import { EMAIL_PLACEHOLDER } from '@/content/landing';
+import { anchors, routes } from '@/lib/routes';
+---
+
+<section class="upload gutter" id="formularz">
+  <form class="upload-form" data-upload-form novalidate={false}>
+    <div class="upload-group">
+      <span class="field-label">{uploadForm.fileLabel}</span>
+      <label class="upload-drop" for="upload-files">
+        <span class="upload-drop-title">{uploadForm.dropTitle}</span>
+        <span class="upload-drop-hint">{uploadForm.dropHint}</span>
+      </label>
+      <a href={anchors.scanning} class="upload-back">{uploadForm.backToRules}</a>
+      <input
+        id="upload-files"
+        type="file"
+        required
+        multiple
+        accept="image/*,application/pdf"
+        class="upload-input"
+        data-files
+      />
+      <span class="upload-files" data-file-label hidden></span>
+    </div>
+
+    <div class="upload-group">
+      <label class="field-label" for="upload-desc">{uploadForm.descriptionLabel}</label>
+      <textarea
+        id="upload-desc"
+        rows="3"
+        class="field field-area"
+        placeholder={uploadForm.descriptionPlaceholder}></textarea>
+    </div>
+
+    <div class="upload-consents">
+      <span class="field-label">{uploadForm.consentLabel}</span>
+
+      <label class="check">
+        <input type="checkbox" class="check-box" required />
+        <span>
+          <span class="consent-tag consent-tag-required">{uploadForm.required}</span>
+          Oświadczam, że zapoznałem/am się z <a href={anchors.terms} class="prose-link">Regulaminem</a>
+          i udzielam nieodpłatnej licencji niewyłącznej na korzystanie z przesłanego materiału na zasadach
+          w nim określonych.
+        </span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" class="check-box" required />
+        <span>
+          <span class="consent-tag consent-tag-required">{uploadForm.required}</span>
+          Zapoznałem/am się z <a href={anchors.gdpr} class="prose-link">Klauzulą Informacyjną</a>
+          dotyczącą przetwarzania danych osobowych (RODO).
+        </span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" class="check-box" checked data-wants-contact />
+        <span>
+          <span class="consent-tag">{uploadForm.optional}</span>
+          Chcę otrzymać bezpłatny wczesny dostęp do narzędzia na okres 12 miesięcy od jego uruchomienia.
+          Wyrażam zgodę na przetwarzanie mojego adresu e-mail w celu kontaktu w sprawie dostępu:
+        </span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" class="check-box" data-wants-contact />
+        <span>
+          <span class="consent-tag">{uploadForm.optional}</span>
+          Chcę otrzymywać newsletter z postępami prac nad Copyisto. Wyrażam zgodę na przetwarzanie
+          mojego adresu e-mail w celu przesyłania informacji o rozwoju projektu.
+        </span>
+      </label>
+
+      <input
+        type="email"
+        class="field"
+        aria-label="Adres e-mail"
+        placeholder={EMAIL_PLACEHOLDER}
+        data-email
+        required
+      />
+    </div>
+
+    <div class="upload-submit">
+      <Button type="submit" variant="primary" size="lg">{uploadForm.submit}</Button>
+      <span class="upload-submit-note">{uploadForm.submitNote}</span>
+    </div>
+  </form>
+
+  <div class="upload-sent" data-upload-sent hidden role="status">
+    <h2 class="upload-sent-title">{uploadForm.sentTitle}</h2>
+    <p class="upload-sent-body">{uploadForm.sentBody}</p>
+    <Button href={routes.home} variant="outline" size="sm">{uploadForm.sentCta}</Button>
+  </div>
+</section>
+
+<script>
+  import { submitMaterials } from '@/lib/submissions';
+
+  const form = document.querySelector<HTMLFormElement>('[data-upload-form]');
+  const sent = document.querySelector<HTMLElement>('[data-upload-sent]');
+  if (form && sent) {
+    const files = form.querySelector<HTMLInputElement>('[data-files]')!;
+    const fileLabel = form.querySelector<HTMLElement>('[data-file-label]')!;
+    const email = form.querySelector<HTMLInputElement>('[data-email]')!;
+    const contactBoxes = [...form.querySelectorAll<HTMLInputElement>('[data-wants-contact]')];
+    const description = form.querySelector<HTMLTextAreaElement>('#upload-desc')!;
+
+    /** An address is only needed once the visitor asks to be contacted. */
+    const syncEmail = () => {
+      const needed = contactBoxes.some((b) => b.checked);
+      email.hidden = !needed;
+      email.required = needed;
+    };
+    contactBoxes.forEach((b) => b.addEventListener('change', syncEmail));
+    syncEmail();
+
+    files.addEventListener('change', () => {
+      const picked = [...(files.files ?? [])];
+      fileLabel.hidden = picked.length === 0;
+      fileLabel.textContent =
+        picked.length === 1 ? picked[0].name : `${picked.length} wybranych plików`;
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const result = await submitMaterials({
+        files: [...(files.files ?? [])],
+        description: description.value,
+        acceptsTerms: true,
+        acceptsGdpr: true,
+        wantsEarlyAccess: contactBoxes[0].checked,
+        wantsNewsletter: contactBoxes[1].checked,
+        email: email.value,
+      });
+      if (result.ok) {
+        form.hidden = true;
+        sent.hidden = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .upload {
+    flex: 1;
+    width: 100%;
+    max-width: 820px;
+    margin-inline: auto;
+    padding-block: var(--space-section-form);
+    scroll-margin-top: 24px;
+  }
+
+  .upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding: clamp(22px, 3vw, 34px);
+    border: 1px solid var(--color-rule-25);
+    background: var(--color-field);
+  }
+
+  .upload-form[hidden] {
+    display: none;
+  }
+
+  .upload-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+  }
+
+  .upload-drop {
+    display: block;
+    padding: 30px 20px;
+    border: 1px dashed var(--color-rule-40);
+    border-radius: 2px;
+    background: var(--color-paper);
+    cursor: pointer;
+    text-align: center;
+    transition:
+      border-color 140ms ease,
+      background-color 140ms ease;
+  }
+
+  .upload-drop:hover {
+    border-color: var(--color-rust);
+    background: var(--color-field-hover);
+  }
+
+  .upload-drop-title {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    font-weight: 500;
+  }
+
+  .upload-drop-hint {
+    display: block;
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  .upload-back {
+    font-size: var(--text-meta);
+    font-weight: 600;
+  }
+
+  /* Visually hidden, but still focusable and still the label's target. */
+  .upload-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .upload-files {
+    color: var(--color-rust);
+    font-size: var(--text-meta);
+    font-weight: 600;
+  }
+
+  .upload-files[hidden] {
+    display: none;
+  }
+
+  .upload-consents {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+    padding-top: 22px;
+    border-top: 1px solid var(--color-rule-18);
+  }
+
+  .upload-consents [data-email][hidden] {
+    display: none;
+  }
+
+  .upload-submit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-2xs);
+  }
+
+  .upload-submit-note {
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  .upload-sent {
+    padding: clamp(26px, 3.5vw, 40px);
+    border: 1px solid var(--color-rule-25);
+    background: var(--color-field);
+  }
+
+  .upload-sent[hidden] {
+    display: none;
+  }
+
+  .upload-sent-title {
+    margin: 0 0 14px;
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.16;
+  }
+
+  .upload-sent-body {
+    max-width: 44ch;
+    margin: 0 0 22px;
+    color: var(--color-ink-soft);
+    font-size: 16.5px;
+    line-height: 1.66;
+  }
+</style>
