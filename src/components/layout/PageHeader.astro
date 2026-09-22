@@ -1,0 +1,24 @@
+---
+import Logo from './Logo.astro';
+
+interface Props {
+  logoHref: string;
+}
+const { logoHref } = Astro.props;
+---
+
+<header class="page-header gutter">
+  <Logo href={logoHref} />
+  <slot />
+</header>
+
+<style>
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-2xl);
+    padding-block: 16px;
+    border-bottom: 1px solid var(--color-rule);
+  }
+</style>

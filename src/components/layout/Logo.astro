@@ -1,0 +1,72 @@
+---
+import { site } from '@/content/site';
+
+interface Props {
+  href: string;
+  /** Hides the wordmark on very narrow screens, as the design does. */
+  collapsible?: boolean;
+}
+
+const { href, collapsible = false } = Astro.props;
+---
+
+<a {href} class="logo" aria-label={site.name}>
+  <span class="logo-mark" aria-hidden="true">C</span>
+  <span class:list={['logo-word', collapsible && 'logo-word-collapsible']}>{site.name}</span>
+</a>
+
+<style>
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .logo:hover {
+    color: var(--color-rust);
+    text-decoration: none;
+  }
+
+  /* The alla breve: a Bodoni C crossed by the cut-time stroke. */
+  .logo-mark {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 2px;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .logo-mark::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 23px;
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+    background: var(--color-paper);
+  }
+
+  .logo-word {
+    font-family: var(--font-serif);
+    font-size: 23px;
+    letter-spacing: 0.01em;
+  }
+
+  @media (max-width: 420px) {
+    .logo-word-collapsible {
+      display: none;
+    }
+  }
+</style>

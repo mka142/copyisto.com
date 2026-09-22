@@ -1,0 +1,114 @@
+---
+import Button from '@/components/primitives/Button.astro';
+import { EMAIL_PLACEHOLDER, creditsPopover } from '@/content/landing';
+
+/**
+ * The credit-balance lookup. Rendered twice: inside the desktop popover and
+ * inside the mobile drawer, so each instance is wired by `id`.
+ */
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="credits-panel-body" data-credits={id}>
+  <form class="credits-form" data-credits-form>
+    <span class="credits-label">{creditsPopover.label}</span>
+    <p class="credits-prompt">{creditsPopover.prompt}</p>
+    <input
+      type="email"
+      required
+      class="field field-on-field"
+      aria-label={creditsPopover.label}
+      placeholder={EMAIL_PLACEHOLDER}
+      data-credits-email
+    />
+    <Button type="submit" variant="solid" size="sm">{creditsPopover.submit}</Button>
+  </form>
+
+  <div class="credits-result" data-credits-result hidden>
+    <span class="credits-label">{creditsPopover.resultLabel}</span>
+    <p class="credits-result-text">{creditsPopover.result}</p>
+    <Button type="button" variant="outline" size="xs" class="credits-reset" data-credits-reset>
+      {creditsPopover.reset}
+    </Button>
+  </div>
+</div>
+
+<script>
+  import { checkCredits } from '@/lib/submissions';
+
+  document.querySelectorAll<HTMLElement>('[data-credits]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('[data-credits-form]')!;
+    const result = root.querySelector<HTMLElement>('[data-credits-result]')!;
+    const email = root.querySelector<HTMLInputElement>('[data-credits-email]')!;
+    const reset = root.querySelector<HTMLButtonElement>('[data-credits-reset]')!;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const res = await checkCredits(email.value);
+      if (res.ok) {
+        form.hidden = true;
+        result.hidden = false;
+      }
+    });
+
+    reset.addEventListener('click', () => {
+      email.value = '';
+      result.hidden = true;
+      form.hidden = false;
+    });
+  });
+</script>
+
+<style>
+  .credits-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+
+  .credits-form[hidden] {
+    display: none;
+  }
+
+  .credits-result {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+  }
+
+  .credits-result[hidden] {
+    display: none;
+  }
+
+  .credits-label {
+    color: var(--color-rust);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .credits-prompt {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    line-height: 1.55;
+  }
+
+  .credits-result-text {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-label);
+    line-height: 1.6;
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.credits-reset) {
+    align-self: flex-start;
+  }
+</style>

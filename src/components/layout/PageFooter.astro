@@ -1,0 +1,29 @@
+---
+import FooterBar from './FooterBar.astro';
+
+interface Props {
+  links?: boolean;
+  note: string;
+}
+const { links = true, note } = Astro.props;
+---
+
+<footer class="page-footer gutter">
+  <div class="page-footer-shell">
+    <FooterBar {links} {note} />
+  </div>
+</footer>
+
+<style>
+  .page-footer {
+    padding-block: clamp(28px, 4vw, 44px);
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+  }
+
+  .page-footer-shell {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+  }
+</style>

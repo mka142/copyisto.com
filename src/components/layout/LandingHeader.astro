@@ -1,0 +1,92 @@
+---
+import Button from '@/components/primitives/Button.astro';
+import Logo from './Logo.astro';
+import CreditsPopover from './CreditsPopover.astro';
+import MobileNav from './MobileNav.astro';
+import { cta, primaryNav } from '@/content/site';
+import { routes } from '@/lib/routes';
+---
+
+<header class="landing-header gutter">
+  <Logo href={routes.home} collapsible />
+  <nav class="landing-nav" aria-label="Główna">
+    <div class="landing-nav-links">
+      {
+        primaryNav.map((item) =>
+          item.soon ? (
+            <span class="nav-soon">
+              {item.label}
+              <span class="nav-soon-badge">Wkrótce</span>
+            </span>
+          ) : (
+            <a href={item.href} class="nav-link">{item.label}</a>
+          ),
+        )
+      }
+    </div>
+    <div class="landing-nav-credits">
+      <CreditsPopover />
+    </div>
+    <Button href={cta.formHref} variant="solid" size="xs" compact>{cta.openForm}</Button>
+    <MobileNav />
+  </nav>
+</header>
+
+<style>
+  .landing-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-2xl);
+    padding-block: 16px;
+    border-bottom: 1px solid var(--color-rule);
+    background: var(--color-paper-88);
+    backdrop-filter: blur(8px);
+  }
+
+  .landing-nav,
+  .landing-nav-links {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: clamp(16px, 2.2vw, 32px);
+  }
+
+  .nav-link {
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    color: var(--color-ink-soft);
+    font-size: var(--text-base);
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    border-bottom-color: var(--color-rust);
+    color: var(--color-rust);
+    text-decoration: none;
+  }
+
+  .nav-soon {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--color-faint);
+    cursor: default;
+    font-size: var(--text-base);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Below 1090px the links and the credits button move into the drawer. */
+  @media (max-width: 1089px) {
+    .landing-nav-links,
+    .landing-nav-credits {
+      display: none;
+    }
+  }
+</style>

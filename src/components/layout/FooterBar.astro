@@ -1,0 +1,57 @@
+---
+import { legalNav, site } from '@/content/site';
+
+interface Props {
+  /** The Regulamin page shows only the wordmark and the note. */
+  links?: boolean;
+  note: string;
+}
+const { links = true, note } = Astro.props;
+---
+
+<div class="footer-bar">
+  <span class="footer-word">{site.name}</span>
+  <div class="footer-links">
+    {links && legalNav.map((item) => <a href={item.href} class="footer-link">{item.label}</a>)}
+    <span class="footer-note">{note}</span>
+  </div>
+</div>
+
+<style>
+  .footer-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 28px;
+  }
+
+  .footer-word {
+    color: var(--color-dark-fg-strong);
+    font-family: var(--font-serif);
+    font-size: 19px;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-xl);
+  }
+
+  .footer-link {
+    color: var(--color-dark-fg-soft);
+    font-size: var(--text-meta);
+    text-decoration: none;
+  }
+
+  .footer-link:hover {
+    color: var(--color-dark-fg-strong);
+    text-decoration: none;
+  }
+
+  .footer-note {
+    color: var(--color-dark-fg-faint);
+    font-size: var(--text-caption);
+  }
+</style>

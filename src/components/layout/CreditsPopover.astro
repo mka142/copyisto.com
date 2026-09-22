@@ -1,0 +1,59 @@
+---
+import Button from '@/components/primitives/Button.astro';
+import CreditsPanel from './CreditsPanel.astro';
+import { cta } from '@/content/site';
+---
+
+<div class="credits-anchor" data-popover>
+  <Button type="button" variant="outline" size="xs" aria-expanded="false" aria-haspopup="dialog" data-popover-toggle>
+    {cta.checkCredits}
+  </Button>
+  <div class="credits-panel" role="dialog" aria-label={cta.checkCredits} data-popover-panel hidden>
+    <CreditsPanel id="desktop" />
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-popover]');
+  if (root) {
+    const toggle = root.querySelector<HTMLButtonElement>('[data-popover-toggle]')!;
+    const panel = root.querySelector<HTMLElement>('[data-popover-panel]')!;
+
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+
+    toggle.addEventListener('click', () => setOpen(Boolean(panel.hidden)));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) setOpen(false);
+    });
+
+    document.addEventListener('pointerdown', (e) => {
+      if (!panel.hidden && !root.contains(e.target as Node)) setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .credits-anchor {
+    position: relative;
+  }
+
+  .credits-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 60;
+    width: min(340px, 86vw);
+    padding: 20px;
+    border: 1px solid var(--color-rule-30);
+    background: var(--color-paper);
+    box-shadow: 5px 6px 0 var(--color-ink-12);
+  }
+
+  .credits-panel[hidden] {
+    display: none;
+  }
+</style>
