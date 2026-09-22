@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Copyisto">
+  <title>Copyisto</title>
+  <rect width="32" height="32" rx="2" fill="#241D14"/>
+  <!-- Alla breve, matching the wordmark's Bodoni C: narrower than it is tall,
+       high contrast (2.8 stem against a 1.4 hairline), and cut on a vertical
+       so both terminals read as flat Didone serifs. Drawn as geometry rather
+       than type, so the icon needs no font and stays sharp at 16px. -->
+  <path
+    d="M20.3 8.158
+       A8 9.3 0 1 0 20.3 23.842
+       L20.3 20.442
+       A5.2 7.9 0 1 1 20.3 11.558 Z"
+    fill="#F4F0E6"/>
+  <rect x="14.8" y="4.4" width="2.4" height="23.2" rx="1.2" fill="#F4F0E6"/>
+</svg>
