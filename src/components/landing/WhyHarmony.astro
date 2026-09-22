@@ -1,0 +1,59 @@
+---
+import Eyebrow from '@/components/primitives/Eyebrow.astro';
+import PlaceholderTile from '@/components/primitives/PlaceholderTile.astro';
+import { why } from '@/content/landing';
+---
+
+<section class="why gutter" id="dlaczego">
+  <div class="why-intro">
+    <Eyebrow class="why-eyebrow">{why.eyebrow}</Eyebrow>
+    <h2 class="display">{why.title}</h2>
+  </div>
+
+  <div class="why-body-col">
+    <div class="why-tiles">
+      {why.tiles.map((tile) => <PlaceholderTile badge={tile.badge} caption={tile.caption} ratio="3/2" />)}
+    </div>
+    <p class="why-body">{why.body}</p>
+  </div>
+</section>
+
+<style>
+  .why {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: start;
+    gap: var(--space-column);
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-block: var(--space-section);
+    scroll-margin-top: 72px;
+  }
+
+  .why-intro,
+  .why-body-col {
+    min-width: 0;
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.why-eyebrow) {
+    margin-bottom: 24px;
+  }
+
+  .why-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-sm);
+    margin-bottom: 28px;
+  }
+
+  .why-body {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: clamp(16px, 1.2vw, 18px);
+    line-height: 1.72;
+    text-wrap: pretty;
+  }
+</style>

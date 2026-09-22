@@ -1,0 +1,116 @@
+---
+import Eyebrow from '@/components/primitives/Eyebrow.astro';
+import MusicXmlPreview from './MusicXmlPreview.astro';
+import { howItWorks } from '@/content/landing';
+---
+
+<section class="band how gutter" id="jak-to-dziala">
+  <div class="how-shell">
+    <Eyebrow class="how-eyebrow">{howItWorks.eyebrow}</Eyebrow>
+    <h2 class="display how-title">{howItWorks.title}</h2>
+
+    <div class="how-steps">
+      {
+        howItWorks.steps.map((step) => (
+          <article class:list={['step', step.reversed && 'step-reversed']}>
+            <div class="step-copy">
+              <span class="ornament ornament-lg">{step.number}</span>
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-body">{step.body}</p>
+            </div>
+            <div class="step-art">
+              {step.image ? <img src={step.image.src} alt={step.image.alt} /> : <MusicXmlPreview />}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    padding-block: var(--space-section);
+    scroll-margin-top: 72px;
+  }
+
+  .how-shell {
+    max-width: 1280px;
+    margin-inline: auto;
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.how-eyebrow) {
+    margin-bottom: 24px;
+  }
+
+  .how-title {
+    max-width: 18ch;
+    margin-bottom: var(--space-stack);
+  }
+
+  .how-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-stack);
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: center;
+    gap: var(--space-column-sm);
+  }
+
+  .step-copy {
+    min-width: 0;
+  }
+
+  .step-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .step-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Step two puts the artwork first. `order` only bites once the grid has
+     two columns, so the stacked order stays copy-then-art on narrow screens. */
+  .step-reversed .step-copy {
+    order: 2;
+  }
+
+  .step-reversed .step-art {
+    order: 1;
+  }
+
+  @media (max-width: 660px) {
+    .step-reversed .step-copy,
+    .step-reversed .step-art {
+      order: initial;
+    }
+  }
+
+  .step-title {
+    margin: 0 0 14px;
+    font-family: var(--font-serif);
+    font-size: clamp(23px, 2.1vw, 30px);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .step-body {
+    max-width: 46ch;
+    margin: 0;
+    color: var(--color-ink-soft);
+    line-height: 1.68;
+    text-wrap: pretty;
+  }
+</style>

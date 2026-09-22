@@ -1,0 +1,24 @@
+---
+import Base from '@/layouts/Base.astro';
+import LandingHeader from '@/components/layout/LandingHeader.astro';
+import LandingFooter from '@/components/layout/LandingFooter.astro';
+import Hero from '@/components/landing/Hero.astro';
+import Problem from '@/components/landing/Problem.astro';
+import HowItWorks from '@/components/landing/HowItWorks.astro';
+import WhyHarmony from '@/components/landing/WhyHarmony.astro';
+import Team from '@/components/landing/Team.astro';
+import Newsletter from '@/components/landing/Newsletter.astro';
+---
+
+<Base>
+  <LandingHeader />
+  <main>
+    <Hero />
+    <Problem />
+    <HowItWorks />
+    <WhyHarmony />
+    <Team />
+    <Newsletter />
+  </main>
+  <LandingFooter />
+</Base>

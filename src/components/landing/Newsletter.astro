@@ -1,0 +1,146 @@
+---
+import Button from '@/components/primitives/Button.astro';
+import Eyebrow from '@/components/primitives/Eyebrow.astro';
+import { EMAIL_PLACEHOLDER, newsletter } from '@/content/landing';
+import { anchors } from '@/lib/routes';
+---
+
+<section class="news gutter" id="newsletter">
+  <div class="news-card">
+    <div class="news-intro">
+      <Eyebrow class="news-eyebrow">{newsletter.eyebrow}</Eyebrow>
+      <h2 class="display-sm news-title">{newsletter.title}</h2>
+      <p class="news-body">{newsletter.body}</p>
+    </div>
+
+    <div class="news-col" data-newsletter>
+      <form class="news-form" data-newsletter-form>
+        <div class="news-row">
+          <input
+            type="email"
+            required
+            class="field news-input"
+            aria-label={newsletter.eyebrow}
+            placeholder={EMAIL_PLACEHOLDER}
+            data-newsletter-email
+          />
+          <Button type="submit" variant="solid" size="md">{newsletter.submit}</Button>
+        </div>
+        <label class="check check-sm">
+          <input type="checkbox" class="check-box" required />
+          <span>
+            {newsletter.consent}{' '}
+            <a href={anchors.gdpr} class="prose-link">{newsletter.consentLink}</a>
+          </span>
+        </label>
+      </form>
+
+      <p class="news-confirmation" data-newsletter-sent hidden role="status">
+        {newsletter.confirmation}
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { submitNewsletter } from '@/lib/submissions';
+
+  const root = document.querySelector<HTMLElement>('[data-newsletter]');
+  if (root) {
+    const form = root.querySelector<HTMLFormElement>('[data-newsletter-form]')!;
+    const sent = root.querySelector<HTMLElement>('[data-newsletter-sent]')!;
+    const email = root.querySelector<HTMLInputElement>('[data-newsletter-email]')!;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const result = await submitNewsletter(email.value);
+      if (result.ok) {
+        form.hidden = true;
+        sent.hidden = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .news {
+    padding-block: var(--space-section-sm);
+    scroll-margin-top: 72px;
+  }
+
+  .news-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: center;
+    gap: var(--space-column-sm);
+    max-width: 1080px;
+    margin-inline: auto;
+    padding: var(--space-card);
+    border: 1px solid var(--color-rule-25);
+    background: var(--color-field);
+  }
+
+  .news-intro,
+  .news-col {
+    min-width: 0;
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.news-eyebrow) {
+    margin-bottom: 16px;
+  }
+
+  .news-title {
+    margin-bottom: 12px;
+  }
+
+  .news-body {
+    max-width: 42ch;
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .news-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+
+  .news-form[hidden] {
+    display: none;
+  }
+
+  .news-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-2xs);
+  }
+
+  /* Overrides the shared .field width; both are global so order decides,
+     and this sheet is emitted after global.css. */
+  .news-input {
+    flex: 1 1 200px;
+    min-width: 0;
+    width: auto;
+  }
+
+  .news-confirmation {
+    margin: 0;
+    padding: 18px 20px;
+    border: 1px solid var(--color-rule-30);
+    border-radius: 2px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-lg);
+    line-height: 1.6;
+  }
+
+  .news-confirmation[hidden] {
+    display: none;
+  }
+</style>

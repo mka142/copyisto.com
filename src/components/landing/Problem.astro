@@ -1,0 +1,131 @@
+---
+import { problem } from '@/content/landing';
+---
+
+<div class="perforation" aria-hidden="true"></div>
+
+<section class="problem gutter" id="problem">
+  <div class="problem-art problem-art-a" aria-hidden="true">
+    <img src="/assets/bg-a-program.svg" alt="" />
+  </div>
+  <div class="problem-art problem-art-b" aria-hidden="true">
+    <img src="/assets/bg-b-czas.svg" alt="" />
+  </div>
+
+  <h2 class="problem-title">{problem.title}</h2>
+  <p class="copy problem-body">{problem.body}</p>
+
+  <figure class="problem-quote">
+    <blockquote class="problem-quote-text">{problem.quote}</blockquote>
+    <figcaption class="problem-quote-caption">{problem.quoteCaption}</figcaption>
+  </figure>
+
+  <p class="copy problem-closing">{problem.closing}</p>
+</section>
+
+<style>
+  .perforation {
+    height: 22px;
+    opacity: 0.7;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--color-ink-22) 0 1px,
+      transparent 1px 6px
+    );
+  }
+
+  .problem {
+    position: relative;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-block: clamp(44px, 6vw, 88px);
+    overflow: hidden;
+    scroll-margin-top: 80px;
+  }
+
+  .problem-art {
+    position: absolute;
+    z-index: 0;
+    display: flex;
+    pointer-events: none;
+  }
+
+  .problem-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .problem-art-a {
+    top: clamp(4px, 1vw, 16px);
+    right: 0;
+    width: min(44%, 540px);
+  }
+
+  .problem-art-b {
+    bottom: var(--space-column-sm);
+    left: 0;
+    width: min(54%, 680px);
+  }
+
+  /* Below 840px the artwork would collide with the text, as in the design. */
+  @media (max-width: 840px) {
+    .problem-art {
+      display: none;
+    }
+  }
+
+  .problem-title {
+    position: relative;
+    z-index: 1;
+    max-width: 17ch;
+    margin: 0 0 32px;
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 3.4vw, 50px);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    line-height: 1.12;
+    text-wrap: pretty;
+  }
+
+  .problem-body,
+  .problem-closing {
+    position: relative;
+    z-index: 1;
+    max-width: 56ch;
+  }
+
+  .problem-closing {
+    margin-left: auto;
+  }
+
+  .problem-quote {
+    position: relative;
+    margin: clamp(36px, 4.5vw, 64px) 0;
+    padding-block: var(--space-card-sm);
+    border-top: 1px solid var(--color-rule-18);
+    border-bottom: 1px solid var(--color-rule-18);
+    text-align: center;
+  }
+
+  .problem-quote-text {
+    margin: 0;
+    color: var(--color-rust);
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 3.2vw, 44px);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.22;
+    text-wrap: balance;
+  }
+
+  .problem-quote-caption {
+    margin-top: 18px;
+    color: var(--color-muted);
+    font-size: var(--text-note);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+</style>
