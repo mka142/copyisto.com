@@ -51,7 +51,7 @@ const config = {
       },
     ],
   },
-  ignoreFiles: ['dist/**', '.vercel/**', 'node_modules/**', 'public/**', 'design/**'],
+  ignoreFiles: ['dist/**', '.vercel/**', 'node_modules/**', 'public/**'],
 };
 
 export default config;
