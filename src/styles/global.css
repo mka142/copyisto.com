@@ -1,6 +1,7 @@
 /* Self-hosted so the Polish diacritics never fall back mid-word. */
-@import url('@fontsource-variable/bodoni-moda/wght.css');
-@import url('@fontsource-variable/bodoni-moda/wght-italic.css');
+@import url('@fontsource/young-serif/latin.css');
+@import url('@fontsource/young-serif/latin-ext.css');
+@import url('@fontsource/im-fell-english/latin-italic.css');
 @import url('@fontsource-variable/eb-garamond/wght-italic.css');
 @import url('@fontsource-variable/archivo/wght.css');
 
@@ -102,8 +103,15 @@
   --text-body: 15.5px;    /* the most common size on the site */
   --text-lg: 16px;
   --text-xl: 17px;        /* body default */
-  --font-serif: 'Bodoni Moda Variable', georgia, serif;
-  --font-script: 'EB Garamond Variable', garamond, serif;
+
+  /* The design's serifFont default. It ships weight 400 only and no italic,
+     so headings set to 500 render at 400 and the two italic serif lines are
+     synthesised obliques, exactly as the design rendered them. */
+  --font-serif: 'Young Serif', georgia, serif;
+
+  /* IM Fell English ships latin only, so EB Garamond sits behind it to catch
+     the Polish diacritics it lacks. This is the design's own stack. */
+  --font-script: 'IM Fell English', 'EB Garamond Variable', garamond, serif;
   --font-sans: 'Archivo Variable', system-ui, sans-serif;
 }
 
