@@ -1,0 +1,41 @@
+---
+import { CONTACT_EMAIL, mailto } from '@/lib/routes';
+
+/**
+ * Renders legal copy, turning two things into markup: the contact address
+ * becomes a mailto link, and any span listed in `accents` (the bracketed
+ * details still awaiting a lawyer) is highlighted.
+ */
+interface Props {
+  text: string;
+  accents?: readonly string[];
+}
+
+const { text, accents = [] } = Astro.props;
+
+const needles = [...accents, CONTACT_EMAIL].filter(Boolean);
+const pattern = new RegExp(
+  `(${needles.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`,
+);
+const parts = needles.length ? text.split(pattern) : [text];
+---
+
+{
+  parts.map((part) =>
+    part === CONTACT_EMAIL ? (
+      <a href={mailto} class="prose-link">{part}</a>
+    ) : accents.includes(part) ? (
+      <span class="legal-accent">{part}</span>
+    ) : (
+      <Fragment>{part}</Fragment>
+    ),
+  )
+}
+
+<style is:global>
+  /* Global because these spans are emitted into a parent's prose. */
+  .legal-accent {
+    color: var(--color-rust);
+    font-weight: 600;
+  }
+</style>
