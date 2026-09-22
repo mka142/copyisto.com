@@ -1,0 +1,8 @@
+{
+  // Let Stylelint own CSS diagnostics, including inside .astro <style> blocks.
+  "stylelint.validate": ["css", "astro"],
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    // Language support for .astro: TypeScript in the frontmatter and full CSS
+    // language features inside the <style> block. This is the one that matters.
+    "astro-build.astro-vscode",
+    // Red squiggles for CSS mistakes, inside .astro <style> blocks too.
+    "stylelint.vscode-stylelint"
+  ]
+}
