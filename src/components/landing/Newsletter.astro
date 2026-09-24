@@ -5,42 +5,44 @@ import { EMAIL_PLACEHOLDER, newsletter } from '@/content/landing';
 import { anchors } from '@/lib/routes';
 ---
 
-<section class="news gutter" id="newsletter">
-  <div class="news-card">
-    <div class="news-intro">
-      <Eyebrow class="news-eyebrow">{newsletter.eyebrow}</Eyebrow>
-      <h2 class="display-sm news-title">{newsletter.title}</h2>
-      <p class="news-body">{newsletter.body}</p>
-    </div>
-
-    <div class="news-col" data-newsletter>
-      <form class="news-form" data-newsletter-form>
-        <div class="news-row">
-          <input
-            type="email"
-            required
-            class="field news-input"
-            aria-label={newsletter.eyebrow}
-            placeholder={EMAIL_PLACEHOLDER}
-            data-newsletter-email
-          />
-          <Button type="submit" variant="solid" size="md">{newsletter.submit}</Button>
-        </div>
-        <label class="check check-sm">
-          <input type="checkbox" class="check-box" required />
-          <span>
-            {newsletter.consent}{' '}
-            <a href={anchors.gdpr} class="prose-link">{newsletter.consentLink}</a>
-          </span>
-        </label>
-      </form>
-
-      <p class="news-confirmation" data-newsletter-sent hidden role="status">
-        {newsletter.confirmation}
-      </p>
-    </div>
+<div class="news" id="newsletter">
+  <div class="news-intro">
+    <Eyebrow class="news-eyebrow">{newsletter.eyebrow}</Eyebrow>
+    <h2 class="display-sm news-title">{newsletter.title}</h2>
+    <p class="news-body">{newsletter.body}</p>
   </div>
-</section>
+
+  <div class="news-col" data-newsletter>
+    <form class="news-form" data-newsletter-form>
+      <div class="news-row">
+        <input
+          type="email"
+          required
+          class="field news-input"
+          aria-label={newsletter.eyebrow}
+          placeholder={EMAIL_PLACEHOLDER}
+          data-newsletter-email
+        />
+        <Button type="submit" variant="onDark" size="md">
+          {newsletter.submit}
+        </Button>
+      </div>
+      <label class="check check-sm">
+        <input type="checkbox" class="check-box" required />
+        <span>
+          {newsletter.consent}{' '}
+          <a href={anchors.gdpr} class="prose-link">
+            {newsletter.consentLink}
+          </a>
+        </span>
+      </label>
+    </form>
+
+    <p class="news-confirmation" data-newsletter-sent hidden role="status">
+      {newsletter.confirmation}
+    </p>
+  </div>
+</div>
 
 <script>
   import { submitNewsletter } from '@/lib/submissions';
@@ -63,21 +65,13 @@ import { anchors } from '@/lib/routes';
 </script>
 
 <style>
+  /* Lives in the dark footer, under the closing line of the page. */
   .news {
-    padding-block: var(--space-section-sm);
-    scroll-margin-top: 72px;
-  }
-
-  .news-card {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     align-items: center;
     gap: var(--space-column-sm);
-    max-width: 1080px;
-    margin-inline: auto;
-    padding: var(--space-card);
-    border: 1px solid var(--color-rule-25);
-    background: var(--color-field);
+    scroll-margin-top: 72px;
   }
 
   .news-intro,
@@ -92,14 +86,24 @@ import { anchors } from '@/lib/routes';
     margin-bottom: 16px;
   }
 
+  /* The house rust disappears on the dark footer; ember carries the same accent. */
+  :global(.news-eyebrow .eyebrow-label) {
+    color: var(--color-ember);
+  }
+
+  :global(.news-eyebrow .eyebrow-rule) {
+    background: var(--color-ember);
+  }
+
   .news-title {
     margin-bottom: 12px;
+    color: var(--color-dark-fg-strong);
   }
 
   .news-body {
     max-width: 42ch;
     margin: 0;
-    color: var(--color-muted);
+    color: var(--color-dark-fg-soft);
     font-size: var(--text-body);
     line-height: 1.65;
     text-wrap: pretty;
@@ -121,21 +125,43 @@ import { anchors } from '@/lib/routes';
     gap: var(--gap-2xs);
   }
 
-  /* Overrides the shared .field width; both are global so order decides,
-     and this sheet is emitted after global.css. */
+  /* Overrides the shared .field; both are global so order decides, and
+     this sheet is emitted after global.css. */
   .news-input {
     flex: 1 1 200px;
     min-width: 0;
     width: auto;
+    border-color: var(--color-dark-rule-40);
+    background: transparent;
+    color: var(--color-dark-fg-strong);
+  }
+
+  .news-input::placeholder {
+    color: var(--color-dark-fg-faint);
+  }
+
+  .news-input:focus {
+    border-color: var(--color-ember);
+  }
+
+  .news-form .check {
+    color: var(--color-dark-fg-faint);
+  }
+
+  .news-form .check-box {
+    accent-color: var(--color-ember);
+  }
+
+  .news-form .prose-link {
+    color: var(--color-dark-fg);
   }
 
   .news-confirmation {
     margin: 0;
     padding: 18px 20px;
-    border: 1px solid var(--color-rule-30);
+    border: 1px solid var(--color-dark-rule-40);
     border-radius: 2px;
-    background: var(--color-paper);
-    color: var(--color-ink);
+    color: var(--color-dark-fg-strong);
     font-size: var(--text-lg);
     line-height: 1.6;
   }

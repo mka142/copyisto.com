@@ -41,17 +41,15 @@ const {
 const classes = ['btn', `btn-${variant}`, `btn-${size}`, compact && 'btn-compact', className];
 ---
 
-{
-  href ? (
-    <a href={href} class:list={classes} {...rest}>
-      <slot />
-    </a>
-  ) : (
-    <button type={type} class:list={classes} {...rest}>
-      <slot />
-    </button>
-  )
-}
+{href ? (
+  <a href={href} class:list={classes} {...rest}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class:list={classes} {...rest}>
+    <slot />
+  </button>
+)}
 
 <style>
   .btn {

@@ -1,3 +1,9 @@
+import type { ImageMetadata } from 'astro';
+import type { Labelme } from '@/lib/labelme';
+import manuscript from '@/assets/manuscript.jpg';
+import manuscriptBoxes from '@/assets/manuscript-boxes.json';
+import engravedMistakes from '@/assets/engraved-mistakes.json';
+
 export const hero = {
   titleLead: 'Cyfrowy',
   titleScript: 'skryba',
@@ -27,10 +33,14 @@ export interface Step {
   number: string;
   title: string;
   body: string;
-  /** Steps 1 and 2 show an illustration; step 3 renders the MusicXML preview. */
-  image?: { src: string; alt: string };
+  /** Steps 1 and 2 show the photo; step 3 renders the score reveal. */
+  image?: { src: ImageMetadata; alt: string; boxes?: Labelme };
+  /** Tab on the artwork's frame, naming what the figure shows. */
+  frameLabel: string;
   /** true places the illustration on the left and the copy on the right. */
   reversed?: boolean;
+  /** true stacks the copy above artwork that spans the full width. */
+  wide?: boolean;
 }
 
 export const howItWorks = {
@@ -39,29 +49,34 @@ export const howItWorks = {
   steps: [
     {
       number: '01',
+      frameLabel: 'Wejście · zdjęcie z telefonu',
       title: 'Zwykłe zdjęcie.',
       body:
         'Nie potrzebujesz skanera. Wystarczy zwykłe zdjęcie z telefonu. ' +
         'Nasz system sam prostuje perspektywę i izoluje ślad ołówka.',
       image: {
-        src: '/assets/step-01-scan.svg',
-        alt: 'Pogniecona kartka ze szkolnym czterogłosem pisanym ołówkiem, krzywo, w nierównym świetle',
+        src: manuscript,
+        alt: 'Zdjęcie kartki ze szkolnym czterogłosem pisanym ołówkiem',
       },
     },
     {
       number: '02',
+      frameLabel: 'Detekcja · klasyfikacja obiektów',
       title: 'Klasyfikacja obiektów przez CNN.',
       body:
         'Trenujemy głębokie sieci konwolucyjne do tego, aby rozpoznawały każdą nutę, klucz i krzywą laseczkę oddzielnie, ' +
         'radząc sobie z nakładającym się na siebie atramentem.',
       image: {
-        src: '/assets/step-02-detection.svg',
-        alt: 'To samo zdjęcie z maskami pikseli: główki nut, laseczki i klucze zaznaczone osobnymi kolorami, z etykietami pewności modelu',
+        src: manuscript,
+        alt: 'To samo zdjęcie z ramkami wokół wykrytych obiektów: nut, kluczy, kresek taktowych i łuków',
+        boxes: manuscriptBoxes,
       },
       reversed: true,
     },
     {
       number: '03',
+      frameLabel: 'Wynik · zapis cyfrowy i weryfikacja',
+      wide: true,
       title: 'Cyfrowy zapis i inteligentny asystent.',
       body:
         'Pojedyncze znaki są łączone w logiczną strukturę na podstawie reguł gramatyki muzycznej. ' +
@@ -69,24 +84,35 @@ export const howItWorks = {
         'sprawdzające poprawność kontrapunktu klasycznego.',
     },
   ] satisfies Step[],
-  /** Copy for the animated MusicXML placeholder that stands in for step 3. */
-  preview: {
-    badge: 'Placeholder · animacja',
-    format: 'MusicXML',
-    error: 'Błąd: zakazane równoległe kwinty między altem a tenorem',
-    caption:
-      'Podświetlone obiekty przeskakują na prawą stronę, układając się w czysty zapis cyfrowy; ' +
-      'system zaznacza dwa akordy na czerwono.',
+  /** Step 3: the engraving from `src/assets/engraved.svg` with the checker's findings. */
+  score: {
+    alt:
+      'To samo zadanie w zapisie cyfrowym z zaznaczonymi błędami: podwojone tercje, równoległe kwinty, ' +
+      'skok o sekundę zwiększoną i skok o tryton',
+    mistakes: engravedMistakes satisfies Labelme,
+    /**
+     * One label per mistake box, in the order of `mistakes.shapes`. `from` is
+     * where the arrow starts, `to` where it lands on the box, both in the
+     * mistakes' pixel space. A `from` above the score (y < 0) puts the label
+     * over it; below the score (y > imageHeight) puts it underneath.
+     */
+    callouts: [
+      { text: 'Zdwojenie tercji', from: [2600, -260], to: [2150, 790] },
+      { text: 'Zdwojenie tercji', from: [1100, 3860], to: [700, 3610] },
+      { text: 'Równoległe kwinty', from: [3500, 3860], to: [1300, 3225] },
+      { text: 'Sekunda zwiększona', from: [6000, -260], to: [5250, 2035] },
+      { text: 'Skok o tryton', from: [5600, 3860], to: [5100, 3210] },
+    ] as { text: string; from: [number, number]; to: [number, number] }[],
   },
 } as const;
 
 export const why = {
   eyebrow: 'Proof of concept',
-  title: 'Zaczynamy od klasycznego czterogłosu wokalnego.',
-  tiles: [
-    { badge: 'Placeholder · ikona', caption: 'Nuty ułożone w chór' },
-    { badge: 'Placeholder · ikona', caption: 'Tarcza z „haczykiem” – weryfikacja' },
-  ],
+  title: 'Zaczynamy od zadań z harmonii.',
+  illustration: {
+    src: '/assets/why-notebook.svg',
+    alt: 'Uczennica przy biurku porównuje zadanie z harmonii w zeszycie z jego cyfrowym zapisem na tablecie, obok stos zeszytów',
+  },
   body:
     'Dlaczego akurat harmonia? Czterogłos wokalny to idealne, zamknięte środowisko dla sztucznej inteligencji. ' +
     'Z góry znana tonacja, metrum i dokładnie cztery głosy drastycznie redukują przestrzeń błędów systemu. ' +
@@ -98,8 +124,7 @@ export const why = {
 export const newsletter = {
   eyebrow: 'Newsletter',
   title: 'Obserwuj, jak model uczy się czytać.',
-  body:
-    'Co kilka tygodni krótka wiadomość o postępach: co model już rozpoznaje, a na czym wciąż się myli.',
+  body: 'Co kilka tygodni krótka wiadomość o postępach: co model już rozpoznaje, a na czym wciąż się myli.',
   submit: 'Zapisz się',
   consent:
     'Wyrażam zgodę na przetwarzanie mojego adresu e-mail w celu przesyłania newslettera o rozwoju projektu. ' +
@@ -110,14 +135,12 @@ export const newsletter = {
 
 export const closingCta = {
   title: 'Chcesz pomóc nam rozwijać Copyisto?',
-  body:
-    'Jesteś nauczycielem lub uczniem, który ma w szafie stare zeszyty z harmonii? Odezwij się do nas!',
+  body: 'Jesteś nauczycielem lub uczniem, który ma w szafie stare zeszyty z harmonii? Odezwij się do nas!',
   credits:
     'Za przesłane materiały zbierasz kredyty do wykorzystania w narzędziu. Im więcej przyślesz, tym więcej ich masz.',
   creditsLink: 'Jak to działa',
   emailCta: 'Napisz e-mail',
-  note:
-    'Wysyłka zajmuje minutę. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
+  note: 'Wysyłka zajmuje minutę. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
 } as const;
 
 export const creditsPopover = {

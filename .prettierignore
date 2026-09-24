@@ -1,0 +1,11 @@
+# generated or vendored
+dist/
+.vercel/
+.astro/
+node_modules/
+bun.lock
+
+# exported artwork and data, kept byte for byte as delivered
+public/
+src/assets/
+temp_data/

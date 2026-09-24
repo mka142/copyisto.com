@@ -1,0 +1,238 @@
+---
+import engraved from '@/assets/engraved.svg?raw';
+import { labelmeBoxes } from '@/lib/labelme';
+import { scoreReveal } from '@/lib/score-svg';
+import { howItWorks } from '@/content/landing';
+
+/**
+ * Step three: the engraving writes itself out symbol by symbol, as if read
+ * off the page, then the harmony check marks its mistakes. The SVG is
+ * inlined so each symbol can be animated on its own.
+ */
+const { score } = howItWorks;
+const { svg, columns } = scoreReveal(engraved);
+const mistakes = labelmeBoxes(score.mistakes);
+
+// Room above and below the score for the callouts, in the mistakes' pixels.
+const { imageWidth: w, imageHeight: h } = score.mistakes;
+const top = 750;
+const bottom = 750;
+const total = top + h + bottom;
+const pct = (n: number) => `${((n / w) * 100).toFixed(3)}%`;
+
+const callouts = score.callouts.map(({ text, from: [fx, fy], to: [tx, ty] }, i) => {
+  const my = (fy + ty) / 2;
+  return {
+    text,
+    i,
+    above: fy < 0,
+    // Leaves and enters vertically, so the head points straight into the box.
+    d: `M ${fx} ${fy} C ${fx} ${my} ${tx} ${my} ${tx} ${ty}`,
+    left: pct(fx),
+    top: `${(((fy + top) / total) * 100).toFixed(3)}%`,
+  };
+});
+---
+
+<figure
+  class="score"
+  data-reveal
+  style={`--columns: ${columns}; padding-block: ${pct(top)} ${pct(bottom)}`}
+  role="img"
+  aria-label={score.alt}
+>
+  <Fragment set:html={svg} />
+  <svg
+    class="score-mistakes"
+    viewBox={`0 ${-top} ${w} ${total}`}
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <defs>
+      <marker
+        id="score-arrowhead"
+        viewBox="0 0 10 10"
+        refX="8"
+        refY="5"
+        markerUnits="userSpaceOnUse"
+        markerWidth="150"
+        markerHeight="150"
+        orient="auto"
+      >
+        <path class="score-arrowhead" d="M 0 1 L 9 5 L 0 9 z" />
+      </marker>
+    </defs>
+    {mistakes.map((m, i) => (
+      <rect x={m.x} y={m.y} width={m.width} height={m.height} style={`--m: ${i}`} />
+    ))}
+    {callouts.map((c) => (
+      <g class="score-arrow" style={`--m: ${c.i}`}>
+        <path class="score-arrow-halo" d={c.d} />
+        <path class="score-arrow-line" d={c.d} marker-end="url(#score-arrowhead)" />
+      </g>
+    ))}
+  </svg>
+  {callouts.map((c) => (
+    <span
+      class:list={['score-callout', c.above && 'score-callout-above']}
+      style={`left: ${c.left}; top: ${c.top}; --m: ${c.i}`}
+    >
+      {c.text}
+    </span>
+  ))}
+</figure>
+
+<script>
+  import '@/lib/reveal';
+</script>
+
+<style>
+  .score {
+    --step: 0.07s;
+
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+
+  .score :global(svg:not(.score-mistakes)) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .score-mistakes {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  /* When each mistake is flagged; its arrow and label follow. */
+  .score-mistakes > rect,
+  .score-arrow,
+  .score-callout {
+    --flag: calc(0.9s + var(--columns) * var(--step) + var(--m) * 0.5s);
+  }
+
+  .score-mistakes > rect {
+    fill: var(--color-error-12);
+    stroke: var(--color-error);
+    stroke-width: 2px;
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .score-arrowhead {
+    fill: var(--color-error);
+  }
+
+  .score-arrow path {
+    fill: none;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* A paper-coloured outline keeps the arrow legible where it crosses notes. */
+  .score-arrow-halo {
+    stroke: var(--color-bright);
+    stroke-width: 5px;
+  }
+
+  .score-arrow-line {
+    stroke: var(--color-error);
+    stroke-width: 1.5px;
+  }
+
+  /* Marginalia in the teacher's red: sits past the arrow's tail, centred on it. */
+  .score-callout {
+    position: absolute;
+    padding-top: 4px;
+    color: var(--color-error);
+    font-family: var(--font-script);
+    font-size: clamp(var(--text-fine), 1.4vw, var(--text-xl));
+    font-style: italic;
+    line-height: 1.1;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  .score-callout-above {
+    padding: 0 0 4px;
+    transform: translate(-50%, -100%);
+  }
+
+  /* ---- replay: frame, then symbols column by column, then the verdict */
+
+  .is-armed :global(:is(path, use)[style*='--i']),
+  .is-armed .score-mistakes > rect,
+  .is-armed .score-arrow,
+  .is-armed .score-callout,
+  .is-armed :global(.score-frame) {
+    opacity: 0;
+  }
+
+  .is-playing :global(.score-frame) {
+    animation: score-fade 0.6s ease-out both;
+  }
+
+  /* Each symbol flashes ember as it is recognised, then settles to ink. */
+  .is-playing :global(:is(path, use)[style*='--i']:not([fill='none'])) {
+    animation: score-read-fill 0.5s ease-out calc(0.5s + var(--i) * var(--step)) both;
+  }
+
+  .is-playing :global(path[fill='none'][style*='--i']) {
+    animation: score-read-stroke 0.5s ease-out calc(0.5s + var(--i) * var(--step)) both;
+  }
+
+  .is-playing .score-mistakes > rect {
+    animation: score-flag 0.4s ease-out var(--flag) both;
+  }
+
+  .is-playing .score-arrow {
+    animation: score-fade 0.4s ease-out calc(var(--flag) + 0.2s) both;
+  }
+
+  .is-playing .score-callout {
+    animation: score-fade 0.4s ease-out calc(var(--flag) + 0.3s) both;
+  }
+
+  @keyframes score-fade {
+    0% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes score-read-fill {
+    0% {
+      opacity: 0;
+      fill: var(--color-ember);
+    }
+
+    40% {
+      opacity: 1;
+      fill: var(--color-ember);
+    }
+  }
+
+  @keyframes score-read-stroke {
+    0% {
+      opacity: 0;
+      stroke: var(--color-ember);
+    }
+
+    40% {
+      opacity: 1;
+      stroke: var(--color-ember);
+    }
+  }
+
+  @keyframes score-flag {
+    0% {
+      opacity: 0;
+      transform: scale(1.25);
+    }
+  }
+</style>

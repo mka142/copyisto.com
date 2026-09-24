@@ -11,7 +11,9 @@ const { href, collapsible = false } = Astro.props;
 ---
 
 <a {href} class="logo" aria-label={site.name}>
-  <span class="logo-mark" aria-hidden="true">C</span>
+  <span class="logo-mark" aria-hidden="true">
+    C
+  </span>
   <span class:list={['logo-word', collapsible && 'logo-word-collapsible']}>{site.name}</span>
 </a>
 

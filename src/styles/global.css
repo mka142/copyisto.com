@@ -4,6 +4,7 @@
 @import url('@fontsource/im-fell-english/latin-italic.css');
 @import url('@fontsource-variable/eb-garamond/wght-italic.css');
 @import url('@fontsource-variable/archivo/wght.css');
+@import url('@fontsource-variable/archivo/wght-italic.css');
 
 /* ---------------------------------------------------------------- tokens */
 
@@ -60,6 +61,16 @@
   --color-paper-90: rgb(247 242 230 / 90%);
   --color-ember-fg: #fff7f0;
 
+  /* Detection labels: one hue per class the model finds */
+  --color-label-staff: #4a6f8a;
+  --color-label-system: #7b5ea7;
+  --color-label-treble-clef: #2f7d5b;
+  --color-label-bass-clef: #5f8a2a;
+  --color-label-barline: #b7791f;
+  --color-label-note-up: #c2410c;
+  --color-label-note-down: #be185d;
+  --color-label-note: #9a3412;
+  --color-label-tie: #0e7490;
 
   /* The one gutter that drives every section's horizontal padding */
   --gutter: clamp(20px, 5vw, 72px);
@@ -68,13 +79,13 @@
 
   /* Section padding and grid gaps. Every value below appears more than
      once in the design; reach for one of these before inventing a number. */
-  --space-section: clamp(56px, 8vw, 112px);   /* full band, e.g. How it works */
+  --space-section: clamp(56px, 8vw, 112px); /* full band, e.g. How it works */
   --space-section-sm: clamp(44px, 6vw, 80px); /* lighter band, e.g. newsletter */
   --space-section-form: clamp(48px, 7vw, 88px);
-  --space-stack: clamp(40px, 5vw, 72px);      /* between stacked articles */
-  --space-column: clamp(32px, 5vw, 72px);     /* between grid columns */
+  --space-stack: clamp(40px, 5vw, 72px); /* between stacked articles */
+  --space-column: clamp(32px, 5vw, 72px); /* between grid columns */
   --space-column-sm: clamp(24px, 4vw, 56px);
-  --space-card: clamp(26px, 4vw, 44px);       /* padding inside a bordered card */
+  --space-card: clamp(26px, 4vw, 44px); /* padding inside a bordered card */
   --space-card-sm: clamp(24px, 3vw, 40px);
 
   /* Fixed gaps, smallest to largest. */
@@ -92,17 +103,17 @@
      each heading level is tuned individually in the design. */
   --text-2xs: 10px;
   --text-xs: 10.5px;
-  --text-note: 11px;      /* eyebrow labels, uppercase captions */
+  --text-note: 11px; /* eyebrow labels, uppercase captions */
   --text-fine: 12px;
   --text-caption: 12.5px;
   --text-sm: 13px;
-  --text-meta: 13.5px;    /* footer links, small buttons */
+  --text-meta: 13.5px; /* footer links, small buttons */
   --text-base: 14px;
   --text-label: 14.5px;
   --text-md: 15px;
-  --text-body: 15.5px;    /* the most common size on the site */
+  --text-body: 15.5px; /* the most common size on the site */
   --text-lg: 16px;
-  --text-xl: 17px;        /* body default */
+  --text-xl: 17px; /* body default */
 
   /* The design's serifFont default. It ships weight 400 only and no italic,
      so headings set to 500 render at 400 and the two italic serif lines are

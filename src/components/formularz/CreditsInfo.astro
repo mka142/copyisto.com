@@ -13,17 +13,17 @@ import { anchors } from '@/lib/routes';
     </div>
 
     <ul class="credits-points">
-      {
-        credits.points.map((point) => (
-          <li class="credits-point">
-            <span class="ornament ornament-xs credits-point-num">{point.number}</span>
-            <p class="credits-point-body">{point.body}</p>
-          </li>
-        ))
-      }
+      {credits.points.map((point) => (
+        <li class="credits-point">
+          <span class="ornament ornament-xs credits-point-num">{point.number}</span>
+          <p class="credits-point-body">{point.body}</p>
+        </li>
+      ))}
       <li class="credits-footnote">
         {credits.footnoteLead}
-        <a href={anchors.creditsClause} class="prose-link">{credits.footnoteLink}</a>
+        <a href={anchors.creditsClause} class="prose-link">
+          {credits.footnoteLink}
+        </a>
         {credits.footnoteTail}
       </li>
     </ul>

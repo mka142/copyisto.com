@@ -16,56 +16,54 @@ const { doc, spaced = false } = Astro.props;
   <Eyebrow class="legal-eyebrow">{doc.eyebrow}</Eyebrow>
   <h1 class:list={['legal-title', spaced && 'legal-title-spaced']}>{doc.title}</h1>
 
-  {
-    doc.meta && (
-      <p class="legal-meta">
-        {doc.meta.map((entry, i) => (
-          <span>
-            {i > 0 && ' · '}
-            {entry.label} <span class="legal-accent">{entry.value}</span>
-          </span>
-        ))}
-      </p>
-    )
-  }
+  {doc.meta && (
+    <p class="legal-meta">
+      {doc.meta.map((entry, i) => (
+        <span>
+          {i > 0 && ' · '}
+          {entry.label} <span class="legal-accent">{entry.value}</span>
+        </span>
+      ))}
+    </p>
+  )}
 
-  {
-    doc.clauses?.map((clause) => (
-      <div>
-        <h2 id={clause.id} class="legal-heading">{clause.heading}</h2>
-        {clause.blocks.map((block) =>
-          block.kind === 'paragraph' ? (
-            <p class="legal-para"><LegalText text={block.text} /></p>
-          ) : (
-            <p class="legal-placeholder">
-              <strong class="legal-placeholder-label">{block.label}</strong> {block.text}
-            </p>
-          ),
-        )}
-      </div>
-    ))
-  }
+  {doc.clauses?.map((clause) => (
+    <div>
+      <h2 id={clause.id} class="legal-heading">
+        {clause.heading}
+      </h2>
+      {clause.blocks.map((block) =>
+        block.kind === 'paragraph' ? (
+          <p class="legal-para">
+            <LegalText text={block.text} />
+          </p>
+        ) : (
+          <p class="legal-placeholder">
+            <strong class="legal-placeholder-label">{block.label}</strong> {block.text}
+          </p>
+        ),
+      )}
+    </div>
+  ))}
 
-  {
-    doc.definitions && (
-      <dl class="legal-defs">
-        {doc.definitions.map((d) => (
-          <div>
-            <dt class="legal-term">{d.term}</dt>
-            <dd class:list={['legal-def', d.placeholder && 'legal-def-placeholder']}>
-              {d.placeholder ? (
-                <Fragment>
-                  <strong class="legal-placeholder-label">{d.label}</strong> {d.text}
-                </Fragment>
-              ) : (
-                <LegalText text={d.text} accents={d.accents} />
-              )}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    )
-  }
+  {doc.definitions && (
+    <dl class="legal-defs">
+      {doc.definitions.map((d) => (
+        <div>
+          <dt class="legal-term">{d.term}</dt>
+          <dd class:list={['legal-def', d.placeholder && 'legal-def-placeholder']}>
+            {d.placeholder ? (
+              <Fragment>
+                <strong class="legal-placeholder-label">{d.label}</strong> {d.text}
+              </Fragment>
+            ) : (
+              <LegalText text={d.text} accents={d.accents} />
+            )}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )}
 </section>
 
 <style>

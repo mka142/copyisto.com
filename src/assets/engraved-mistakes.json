@@ -1,0 +1,95 @@
+{
+  "version": "0.4.43",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "double_thirds",
+      "text": "",
+      "points": [
+        [
+          1884.769301470588,
+          782.2435661764707
+        ],
+        [
+          2181.460477941176,
+          1685.6443014705883
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "double_thirds",
+      "text": "",
+      "points": [
+        [
+          571.0,
+          2105.497242647059
+        ],
+        [
+          863.2389705882352,
+          3598.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "paralel_fifths",
+      "text": "",
+      "points": [
+        [
+          597.453125,
+          2490.6534926470586
+        ],
+        [
+          1423.0045955882354,
+          3212.0919117647054
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "jump_to_augumented_second",
+      "text": "",
+      "points": [
+        [
+          4272.545036764705,
+          2044.6056985294117
+        ],
+        [
+          5349.360294117647,
+          2481.094669117647
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "tritone jump",
+      "text": "",
+      "points": [
+        [
+          4287.963235294117,
+          2724.0863970588234
+        ],
+        [
+          5316.685661764705,
+          3198.8566176470586
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ],
+  "imagePath": "Slice 1.png",
+  "imageData": null,
+  "imageHeight": 3599,
+  "imageWidth": 8766
+}

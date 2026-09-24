@@ -1,29 +1,12 @@
 ---
-import Button from '@/components/primitives/Button.astro';
+import Newsletter from '@/components/landing/Newsletter.astro';
 import FooterBar from './FooterBar.astro';
-import { closingCta } from '@/content/landing';
-import { cta, site } from '@/content/site';
-import { anchors, mailto } from '@/lib/routes';
+import { site } from '@/content/site';
 ---
 
-<footer class="landing-footer gutter" id="zapis">
+<footer class="landing-footer gutter">
   <div class="landing-footer-grid">
-    <div class="landing-footer-copy">
-      <h2 class="landing-footer-title">{closingCta.title}</h2>
-      <p class="landing-footer-lead">{closingCta.body}</p>
-      <p class="landing-footer-credits">
-        {closingCta.credits}{' '}
-        <a href={anchors.credits} class="landing-footer-credits-link">{closingCta.creditsLink}</a>
-      </p>
-      <Button href={mailto} variant="onDarkOutline" size="sm" class="landing-footer-mail">
-        {closingCta.emailCta}
-      </Button>
-    </div>
-
-    <div class="landing-footer-cta">
-      <Button href={cta.formHref} variant="onDark" size="lg">{cta.donate}</Button>
-      <span class="landing-footer-note">{closingCta.note}</span>
-    </div>
+    <Newsletter />
   </div>
 
   <div class="landing-footer-bar">
@@ -37,6 +20,9 @@ import { anchors, mailto } from '@/lib/routes';
     padding-bottom: clamp(32px, 4vw, 48px);
     background: var(--color-dark);
     color: var(--color-dark-fg);
+
+    /* Native controls (the newsletter checkbox) render their dark variant. */
+    color-scheme: dark;
   }
 
   .landing-footer-grid,
@@ -44,79 +30,6 @@ import { anchors, mailto } from '@/lib/routes';
     width: 100%;
     max-width: 1080px;
     margin-inline: auto;
-  }
-
-  .landing-footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-    align-items: start;
-    gap: clamp(36px, 5vw, 72px);
-  }
-
-  .landing-footer-copy {
-    min-width: 0;
-  }
-
-  .landing-footer-title {
-    margin: 0 0 20px;
-    color: var(--color-dark-fg-strong);
-    font-family: var(--font-serif);
-    font-size: clamp(28px, 3vw, 44px);
-    font-weight: 500;
-    line-height: 1.14;
-    text-wrap: pretty;
-  }
-
-  .landing-footer-lead {
-    max-width: 44ch;
-    margin: 0 0 18px;
-    color: var(--color-dark-fg-soft);
-    font-size: var(--text-xl);
-    line-height: 1.66;
-    text-wrap: pretty;
-  }
-
-  .landing-footer-credits {
-    max-width: 44ch;
-    margin: 0;
-    padding-left: 14px;
-    border-left: 2px solid var(--color-ember);
-    color: var(--color-dark-fg);
-    font-size: var(--text-body);
-    line-height: 1.66;
-    text-wrap: pretty;
-  }
-
-  .landing-footer-credits-link {
-    color: var(--color-dark-fg-strong);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .landing-footer-credits-link:hover {
-    color: var(--color-dark-fg-strong);
-  }
-
-  /* :global because this class is handed to a child component, and a
-     parent's scoped styles never reach a child's markup. */
-
-  :global(.landing-footer-mail) {
-    margin-top: 26px;
-  }
-
-  .landing-footer-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--gap-sm);
-    min-width: 0;
-  }
-
-  .landing-footer-note {
-    max-width: 40ch;
-    color: var(--color-dark-fg-faint);
-    font-size: var(--text-sm);
-    line-height: 1.6;
   }
 
   .landing-footer-bar {

@@ -4,6 +4,8 @@
     // language features inside the <style> block. This is the one that matters.
     "astro-build.astro-vscode",
     // Red squiggles for CSS mistakes, inside .astro <style> blocks too.
-    "stylelint.vscode-stylelint"
+    "stylelint.vscode-stylelint",
+    // Formats on save with the repo's .prettierrc.mjs.
+    "esbenp.prettier-vscode"
   ]
 }

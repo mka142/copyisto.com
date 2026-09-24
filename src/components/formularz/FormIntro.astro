@@ -11,17 +11,15 @@ import { formIntro } from '@/content/formularz';
   <p class="intro-body">{formIntro.body}</p>
 
   <ol class="intro-steps">
-    {
-      formIntro.steps.map((step) => (
-        <li class="intro-step">
-          <span class="ornament ornament-sm intro-step-num">{step.number}</span>
-          <div class="intro-step-copy">
-            <strong class="intro-step-title">{step.title}</strong>
-            <span class="intro-step-body">{step.body}</span>
-          </div>
-        </li>
-      ))
-    }
+    {formIntro.steps.map((step) => (
+      <li class="intro-step">
+        <span class="ornament ornament-sm intro-step-num">{step.number}</span>
+        <div class="intro-step-copy">
+          <strong class="intro-step-title">{step.title}</strong>
+          <span class="intro-step-body">{step.body}</span>
+        </div>
+      </li>
+    ))}
   </ol>
 </div>
 

@@ -7,7 +7,9 @@ const { class: className } = Astro.props;
 
 <div class:list={['eyebrow', className]}>
   <span class="eyebrow-rule" aria-hidden="true"></span>
-  <span class="eyebrow-label"><slot /></span>
+  <span class="eyebrow-label">
+    <slot />
+  </span>
 </div>
 
 <style>
@@ -25,11 +27,11 @@ const { class: className } = Astro.props;
     background: var(--color-rust);
   }
 
+  /* Sentence-case italic rather than tracked capitals: a note in the margin. */
   .eyebrow-label {
     color: var(--color-rust);
-    font-size: var(--text-note);
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: var(--text-md);
+    font-style: italic;
+    font-weight: 500;
   }
 </style>

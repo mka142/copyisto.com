@@ -5,22 +5,27 @@ import { problem } from '@/content/landing';
 <div class="perforation" aria-hidden="true"></div>
 
 <section class="problem gutter" id="problem">
-  <div class="problem-art problem-art-a" aria-hidden="true">
-    <img src="/assets/bg-a-program.svg" alt="" />
+  <div class="problem-row">
+    <div>
+      <h2 class="problem-title">{problem.title}</h2>
+      <p class="copy problem-body">{problem.body}</p>
+    </div>
+    <div class="problem-art" aria-hidden="true">
+      <img src="/assets/bg-a-program.svg" alt="" />
+    </div>
   </div>
-  <div class="problem-art problem-art-b" aria-hidden="true">
-    <img src="/assets/bg-b-czas.svg" alt="" />
-  </div>
-
-  <h2 class="problem-title">{problem.title}</h2>
-  <p class="copy problem-body">{problem.body}</p>
 
   <figure class="problem-quote">
     <blockquote class="problem-quote-text">{problem.quote}</blockquote>
     <figcaption class="problem-quote-caption">{problem.quoteCaption}</figcaption>
   </figure>
 
-  <p class="copy problem-closing">{problem.closing}</p>
+  <div class="problem-row problem-row-reversed">
+    <div class="problem-art" aria-hidden="true">
+      <img src="/assets/bg-b-czas.svg" alt="" />
+    </div>
+    <p class="copy problem-closing">{problem.closing}</p>
+  </div>
 </section>
 
 <style>
@@ -39,14 +44,26 @@ import { problem } from '@/content/landing';
     max-width: 1240px;
     margin-inline: auto;
     padding-block: clamp(44px, 6vw, 88px);
-    overflow: hidden;
     scroll-margin-top: 80px;
   }
 
+  /* Both illustrations sit in flow beside their copy, so they can never
+     overlap the text at any width. */
+  .problem-row {
+    display: grid;
+    grid-template-columns: minmax(0, 56ch) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-column-sm);
+  }
+
+  .problem-row-reversed {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 56ch);
+  }
+
   .problem-art {
-    position: absolute;
-    z-index: 0;
-    display: flex;
+    justify-self: center;
+    width: 100%;
+    max-width: 540px;
     pointer-events: none;
   }
 
@@ -56,28 +73,19 @@ import { problem } from '@/content/landing';
     height: auto;
   }
 
-  .problem-art-a {
-    top: clamp(4px, 1vw, 16px);
-    right: 0;
-    width: min(44%, 540px);
-  }
-
-  .problem-art-b {
-    bottom: var(--space-column-sm);
-    left: 0;
-    width: min(54%, 680px);
-  }
-
-  /* Below 840px the artwork would collide with the text, as in the design. */
+  /* Below 840px the artwork would squeeze the text, as in the design. */
   @media (max-width: 840px) {
     .problem-art {
       display: none;
     }
+
+    .problem-row,
+    .problem-row-reversed {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   .problem-title {
-    position: relative;
-    z-index: 1;
     max-width: 17ch;
     margin: 0 0 32px;
     font-family: var(--font-serif);
@@ -86,17 +94,6 @@ import { problem } from '@/content/landing';
     letter-spacing: -0.012em;
     line-height: 1.12;
     text-wrap: pretty;
-  }
-
-  .problem-body,
-  .problem-closing {
-    position: relative;
-    z-index: 1;
-    max-width: 56ch;
-  }
-
-  .problem-closing {
-    margin-left: auto;
   }
 
   .problem-quote {

@@ -11,19 +11,17 @@ import { scanRules } from '@/content/formularz';
     <p class="rules-lead">{scanRules.body}</p>
 
     <div class="rules-grid">
-      {
-        scanRules.rules.map((rule) => (
-          <article class="rule">
-            <PlaceholderTile badge={rule.badge} caption={rule.tileCaption} tone="paper" />
-            <div class="rule-copy">
-              <span class="ornament ornament-md rule-num">{rule.number}</span>
-              <p class="rule-body">
-                <strong class="rule-lead">{rule.lead}</strong> {rule.body}
-              </p>
-            </div>
-          </article>
-        ))
-      }
+      {scanRules.rules.map((rule) => (
+        <article class="rule">
+          <PlaceholderTile badge={rule.badge} caption={rule.tileCaption} tone="paper" />
+          <div class="rule-copy">
+            <span class="ornament ornament-md rule-num">{rule.number}</span>
+            <p class="rule-body">
+              <strong class="rule-lead">{rule.lead}</strong> {rule.body}
+            </p>
+          </div>
+        </article>
+      ))}
     </div>
 
     <div class="rules-note">

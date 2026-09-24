@@ -31,12 +31,13 @@ npm works too, but resolves its own tree.
 
 ## Scripts
 
-| Script | Description |
-|---|---|
-| `dev` | Start the dev server |
-| `build` | Type check and build to `dist/` |
-| `preview` | Serve the production build locally |
-| `lint` | Lint all CSS, including the `<style>` block in every component |
+| Script    | Description                                                                          |
+| --------- | ------------------------------------------------------------------------------------ |
+| `dev`     | Start the dev server                                                                 |
+| `build`   | Lint, type check and build to `dist/`                                                |
+| `preview` | Serve the production build locally                                                   |
+| `lint`    | Lint all CSS, including the `<style>` block in every component, and check formatting |
+| `format`  | Format the repo with Prettier                                                        |
 
 ## Structure
 
@@ -53,6 +54,12 @@ src/
 
 Every component is a single `.astro` file.
 Its styles live in a scoped `<style>` block and are extracted into a real stylesheet at build.
+
+## Score assets
+
+`src/assets/engraved.svg` is the Dorico PDF converted with `pdftocairo -svg`, which outlines every glyph.
+Dorico's own SVG export draws noteheads as text in its Leipzig font, so it only renders on machines that have Leipzig installed.
+`src/lib/score-svg.ts` reads that pdftocairo structure to order the step-three animation.
 
 ## Styling
 
@@ -73,8 +80,7 @@ Uploads accept files up to 20 MB, which exceeds a serverless request body limit,
 
 - Team bios and two profile photos are placeholders in `src/content/team.ts`.
 - The legal documents have unfilled blanks awaiting review, and the numbering skips §5.
-- Six illustration placeholders remain across the landing and form pages.
-- `public/assets/step-02-detection.svg` is truncated and needs re-exporting; it renders detection masks without the manuscript underneath.
+- Three illustration placeholders remain, all in the scan rules on the form page.
 
 ## Deployment
 
