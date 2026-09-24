@@ -1,14 +1,5 @@
 /** Lints the <style> block inside every .astro component, plus global.css. */
 
-/** Properties that must come from a token, never a literal. */
-const tokenOnly = [
-  {
-    // Colours: every palette value lives in global.css.
-    selector: ':not(:where(#\\#never))',
-    properties: ['color', 'background-color', 'border-color', 'outline-color', 'fill', 'stroke'],
-  },
-];
-
 const config = {
   extends: ['stylelint-config-standard'],
   overrides: [
