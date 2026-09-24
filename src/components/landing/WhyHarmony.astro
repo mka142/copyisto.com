@@ -1,37 +1,45 @@
 ---
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import PlaceholderTile from '@/components/primitives/PlaceholderTile.astro';
+import HelpCta from './HelpCta.astro';
 import { why } from '@/content/landing';
 ---
 
 <section class="why gutter" id="dlaczego">
-  <div class="why-intro">
-    <Eyebrow class="why-eyebrow">{why.eyebrow}</Eyebrow>
-    <h2 class="display">{why.title}</h2>
+  <div class="why-shell">
+    <div class="why-copy">
+      <Eyebrow class="why-eyebrow">{why.eyebrow}</Eyebrow>
+      <h2 class="display why-title">{why.title}</h2>
+      <p class="why-body">{why.body}</p>
+    </div>
+
+    <div class="why-art">
+      <img src={why.illustration.src} alt={why.illustration.alt} width="1063" height="635" loading="lazy" />
+    </div>
   </div>
 
-  <div class="why-body-col">
-    <div class="why-tiles">
-      {why.tiles.map((tile) => <PlaceholderTile badge={tile.badge} caption={tile.caption} ratio="3/2" />)}
-    </div>
-    <p class="why-body">{why.body}</p>
+  {/* The ask follows the argument: why notebooks matter, then how to send one. */}
+  <div class="why-shell why-help">
+    <HelpCta />
   </div>
 </section>
 
 <style>
   .why {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    align-items: start;
-    gap: var(--space-column);
-    max-width: 1180px;
-    margin-inline: auto;
     padding-block: var(--space-section);
     scroll-margin-top: 72px;
   }
 
-  .why-intro,
-  .why-body-col {
+  .why-shell {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: center;
+    gap: var(--space-column);
+    max-width: 1180px;
+    margin-inline: auto;
+  }
+
+  .why-copy,
+  .why-art {
     min-width: 0;
   }
 
@@ -42,10 +50,13 @@ import { why } from '@/content/landing';
     margin-bottom: 24px;
   }
 
-  .why-tiles {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--gap-sm);
+  .why-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .why-title {
     margin-bottom: 28px;
   }
 
@@ -55,5 +66,10 @@ import { why } from '@/content/landing';
     font-size: clamp(16px, 1.2vw, 18px);
     line-height: 1.72;
     text-wrap: pretty;
+  }
+
+  .why-help {
+    display: block;
+    margin-top: var(--space-stack);
   }
 </style>

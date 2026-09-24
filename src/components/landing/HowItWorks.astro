@@ -1,6 +1,8 @@
 ---
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import MusicXmlPreview from './MusicXmlPreview.astro';
+import AnnotatedImage from '@/components/primitives/AnnotatedImage.astro';
+import Frame from '@/components/primitives/Frame.astro';
+import ScoreReveal from './ScoreReveal.astro';
 import { howItWorks } from '@/content/landing';
 ---
 
@@ -12,15 +14,15 @@ import { howItWorks } from '@/content/landing';
     <div class="how-steps">
       {
         howItWorks.steps.map((step) => (
-          <article class:list={['step', step.reversed && 'step-reversed']}>
+          <article class:list={['step', step.reversed && 'step-reversed', step.wide && 'step-wide']}>
             <div class="step-copy">
               <span class="ornament ornament-lg">{step.number}</span>
               <h3 class="step-title">{step.title}</h3>
               <p class="step-body">{step.body}</p>
             </div>
-            <div class="step-art">
-              {step.image ? <img src={step.image.src} alt={step.image.alt} /> : <MusicXmlPreview />}
-            </div>
+            <Frame label={step.frameLabel}>
+              {step.image ? <AnnotatedImage {...step.image} /> : <ScoreReveal />}
+            </Frame>
           </article>
         ))
       }
@@ -57,43 +59,35 @@ import { howItWorks } from '@/content/landing';
     gap: var(--space-stack);
   }
 
+  /* The artwork takes the wider column so the score detail stays legible. */
   .step {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     align-items: center;
-    gap: var(--space-column-sm);
+    gap: var(--space-column);
+  }
+
+  .step-reversed {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 
   .step-copy {
     min-width: 0;
   }
 
-  .step-art {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-  }
-
-  .step-art img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  /* Step two puts the artwork first. `order` only bites once the grid has
-     two columns, so the stacked order stays copy-then-art on narrow screens. */
+  /* Step two puts the artwork first. */
   .step-reversed .step-copy {
     order: 2;
   }
 
-  .step-reversed .step-art {
-    order: 1;
-  }
+  @media (max-width: 860px) {
+    .step,
+    .step-reversed {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--gap-2xl);
+    }
 
-  @media (max-width: 660px) {
-    .step-reversed .step-copy,
-    .step-reversed .step-art {
+    .step-reversed .step-copy {
       order: initial;
     }
   }
@@ -112,5 +106,36 @@ import { howItWorks } from '@/content/landing';
     color: var(--color-ink-soft);
     line-height: 1.68;
     text-wrap: pretty;
+  }
+
+  /* The finale: copy in two columns above, the score across the full width. */
+  .step-wide {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-column-sm);
+  }
+
+  .step-wide .step-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-column);
+    align-items: end;
+  }
+
+  .step-wide .step-body {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+  }
+
+  /* Full width reads as too loud on large screens; cap it and keep it centred. */
+  .step-wide > :global(.frame) {
+    justify-self: center;
+    width: 100%;
+    max-width: 1040px;
+  }
+
+  @media (max-width: 860px) {
+    .step-wide .step-copy {
+      display: block;
+    }
   }
 </style>

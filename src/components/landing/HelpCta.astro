@@ -1,0 +1,105 @@
+---
+import Button from '@/components/primitives/Button.astro';
+import { closingCta } from '@/content/landing';
+import { cta } from '@/content/site';
+import { anchors, mailto } from '@/lib/routes';
+---
+
+<div class="help" id="zapis">
+  <div class="help-copy">
+    <h2 class="help-title">{closingCta.title}</h2>
+    <p class="help-lead">{closingCta.body}</p>
+    <p class="help-credits">
+      {closingCta.credits}{' '}
+      <a href={anchors.credits} class="help-credits-link">{closingCta.creditsLink}</a>
+    </p>
+    <Button href={mailto} variant="onDarkOutline" size="sm" class="help-mail">
+      {closingCta.emailCta}
+    </Button>
+  </div>
+
+  <div class="help-cta">
+    <Button href={cta.formHref} variant="onDark" size="lg">{cta.donate}</Button>
+    <span class="help-note">{closingCta.note}</span>
+  </div>
+</div>
+
+<style>
+  .help {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    align-items: start;
+    gap: clamp(36px, 5vw, 72px);
+    padding: var(--space-card);
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+    box-shadow: 5px 6px 0 var(--color-ink-12);
+    scroll-margin-top: 80px;
+  }
+
+  .help-copy {
+    min-width: 0;
+  }
+
+  .help-title {
+    margin: 0 0 20px;
+    color: var(--color-dark-fg-strong);
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 500;
+    line-height: 1.14;
+    text-wrap: pretty;
+  }
+
+  .help-lead {
+    max-width: 44ch;
+    margin: 0 0 18px;
+    color: var(--color-dark-fg-soft);
+    font-size: var(--text-xl);
+    line-height: 1.66;
+    text-wrap: pretty;
+  }
+
+  .help-credits {
+    max-width: 44ch;
+    margin: 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--color-ember);
+    color: var(--color-dark-fg);
+    font-size: var(--text-body);
+    line-height: 1.66;
+    text-wrap: pretty;
+  }
+
+  .help-credits-link {
+    color: var(--color-dark-fg-strong);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .help-credits-link:hover {
+    color: var(--color-dark-fg-strong);
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.help-mail) {
+    margin-top: 26px;
+  }
+
+  .help-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+    min-width: 0;
+  }
+
+  .help-note {
+    max-width: 40ch;
+    color: var(--color-dark-fg-faint);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>
