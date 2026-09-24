@@ -2,7 +2,7 @@
 
 Marketing site for Copyisto, a tool that reads handwritten music notation and checks four-part harmony exercises for errors.
 
-Three static pages in Polish: the landing page, a form for contributing scanned material, and the legal documents.
+Three static pages in Polish: the landing page, a page for contributing notebooks, and the legal documents.
 
 Built with [Astro](https://astro.build). No client framework.
 
@@ -70,7 +70,12 @@ Components reference them with `var(--…)` and never write literal values.
 
 ## Forms
 
-The three forms are wired but not connected.
+Notebooks are collected in person in Wrocław for now, so the contribution page offers e-mail and direct messages instead of an upload.
+The Instagram and Messenger buttons open a chat with the accounts named by the `INSTAGRAM_USERNAME` and `MESSENGER_USERNAME` build variables (see `.env.example`).
+Each button appears only when its variable is set.
+The upload form waits on the `feat/upload-form` branch.
+
+The two remaining forms, newsletter and credits lookup, are wired but not connected.
 They route through `src/lib/submissions.ts`, where each function currently resolves `{ ok: true }`.
 
 The site has no adapter yet.
@@ -81,7 +86,6 @@ Uploads accept files up to 20 MB, which exceeds a serverless request body limit,
 
 - Team bios and two profile photos are placeholders in `src/content/team.ts`.
 - The legal documents have unfilled blanks awaiting review, and the numbering skips §5.
-- Three illustration placeholders remain, all in the scan rules on the form page.
 
 ## Deployment
 

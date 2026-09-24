@@ -137,10 +137,10 @@ export const closingCta = {
   title: 'Chcesz pomóc nam rozwijać Copyisto?',
   body: 'Jesteś nauczycielem lub uczniem, który ma w szafie stare zeszyty z harmonii? Odezwij się do nas!',
   credits:
-    'Za przesłane materiały zbierasz kredyty do wykorzystania w narzędziu. Im więcej przyślesz, tym więcej ich masz.',
+    'Za przekazane materiały zbierasz kredyty do wykorzystania w narzędziu. Im więcej przekażesz, tym więcej ich masz.',
   creditsLink: 'Jak to działa',
   emailCta: 'Napisz e-mail',
-  note: 'Wysyłka zajmuje minutę. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
+  note: 'Przez najbliższy miesiąc zbieramy zeszyty we Wrocławiu. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
 } as const;
 
 export const creditsPopover = {
@@ -149,7 +149,7 @@ export const creditsPopover = {
   submit: 'Sprawdź',
   resultLabel: 'Twoje konto',
   result:
-    'Mamy Twoje materiały. Kredyty są już naliczane — przelicznik podamy przy uruchomieniu narzędzia.',
+    'Mamy Twoje materiały. Kredyty są już naliczane – przelicznik podamy przy uruchomieniu narzędzia.',
   reset: 'Sprawdź inny adres',
 } as const;
 

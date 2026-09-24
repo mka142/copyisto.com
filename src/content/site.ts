@@ -28,7 +28,7 @@ export const legalNav: NavLink[] = [
 ];
 
 export const cta = {
-  openForm: 'Otwórz formularz',
+  openForm: 'Przekaż zeszyt',
   donate: 'Podaruj swojemu zeszytowi z harmonii drugie życie',
   donateShort: 'Podaruj zeszytowi drugie życie',
   checkCredits: 'Sprawdź swoje kredyty',

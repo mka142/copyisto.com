@@ -3,13 +3,26 @@ import Button from '@/components/primitives/Button.astro';
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
 import { EMAIL_PLACEHOLDER, newsletter } from '@/content/landing';
 import { anchors } from '@/lib/routes';
+
+interface Props {
+  /** Eyebrow, heading and lead, when the context asks for a different reason to sign up. */
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+}
+
+const {
+  eyebrow = newsletter.eyebrow,
+  title = newsletter.title,
+  body = newsletter.body,
+} = Astro.props;
 ---
 
 <div class="news" id="newsletter">
   <div class="news-intro">
-    <Eyebrow class="news-eyebrow">{newsletter.eyebrow}</Eyebrow>
-    <h2 class="display-sm news-title">{newsletter.title}</h2>
-    <p class="news-body">{newsletter.body}</p>
+    <Eyebrow class="news-eyebrow">{eyebrow}</Eyebrow>
+    <h2 class="display-sm news-title">{title}</h2>
+    <p class="news-body">{body}</p>
   </div>
 
   <div class="news-col" data-newsletter>

@@ -3,16 +3,15 @@ import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/layout/PageHeader.astro';
 import PageFooter from '@/components/layout/PageFooter.astro';
 import FormIntro from '@/components/formularz/FormIntro.astro';
-import ScanRules from '@/components/formularz/ScanRules.astro';
+import Collection from '@/components/formularz/Collection.astro';
 import CreditsInfo from '@/components/formularz/CreditsInfo.astro';
-import UploadForm from '@/components/formularz/UploadForm.astro';
 import { site } from '@/content/site';
 import { routes } from '@/lib/routes';
 ---
 
 <Base
   title="Przekaż materiały"
-  description="Prześlij zeskanowane zadania z harmonii, pomóż wytrenować model i zyskaj bezpłatny wczesny dostęp."
+  description="Zbieramy zeszyty z harmonii we Wrocławiu. Przekaż swój, pomóż wytrenować model i zyskaj bezpłatny wczesny dostęp."
 >
   <div class="page">
     <PageHeader logoHref={routes.home}>
@@ -25,9 +24,8 @@ import { routes } from '@/lib/routes';
       <div class="form-intro-wrap gutter">
         <FormIntro />
       </div>
-      <ScanRules />
+      <Collection />
       <CreditsInfo />
-      <UploadForm />
     </main>
 
     <PageFooter note={site.domain} />

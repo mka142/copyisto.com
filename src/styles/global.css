@@ -293,20 +293,6 @@ a:hover {
   text-underline-offset: 2px;
 }
 
-/* The diagonal hatch that marks every unfinished placeholder. */
-.hatch::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    135deg,
-    transparent,
-    transparent 11px,
-    rgb(36 29 20 / 5%) 11px,
-    rgb(36 29 20 / 5%) 12px
-  );
-}
-
 /* The page shell used by the two inner pages. */
 .page {
   display: flex;

@@ -79,7 +79,7 @@ export const legalDocuments: LegalDocument[] = [
               'na korzystanie z materiału w celu trenowania, testowania i walidacji modeli uczenia maszynowego oraz rozwoju systemu.',
           ),
           LEGAL(
-            'pola eksploatacji, czas trwania licencji, prawo do sublicencji i przenoszenia, zasady wypowiedzenia — ' +
+            'pola eksploatacji, czas trwania licencji, prawo do sublicencji i przenoszenia, zasady wypowiedzenia – ' +
               'do uzupełnienia przez radcę prawnego.',
           ),
         ],
@@ -92,7 +92,7 @@ export const legalDocuments: LegalDocument[] = [
               'a przesłanie materiału nie narusza praw osób trzecich.',
           ),
           LEGAL(
-            'materiały osób niepełnoletnich — wymóg zgody opiekuna; odpowiedzialność za treść materiału.',
+            'materiały osób niepełnoletnich – wymóg zgody opiekuna; odpowiedzialność za treść materiału.',
           ),
         ],
       },
