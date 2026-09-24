@@ -124,8 +124,7 @@ export const why = {
 export const newsletter = {
   eyebrow: 'Newsletter',
   title: 'Obserwuj, jak model uczy się czytać.',
-  body:
-    'Co kilka tygodni krótka wiadomość o postępach: co model już rozpoznaje, a na czym wciąż się myli.',
+  body: 'Co kilka tygodni krótka wiadomość o postępach: co model już rozpoznaje, a na czym wciąż się myli.',
   submit: 'Zapisz się',
   consent:
     'Wyrażam zgodę na przetwarzanie mojego adresu e-mail w celu przesyłania newslettera o rozwoju projektu. ' +
@@ -136,14 +135,12 @@ export const newsletter = {
 
 export const closingCta = {
   title: 'Chcesz pomóc nam rozwijać Copyisto?',
-  body:
-    'Jesteś nauczycielem lub uczniem, który ma w szafie stare zeszyty z harmonii? Odezwij się do nas!',
+  body: 'Jesteś nauczycielem lub uczniem, który ma w szafie stare zeszyty z harmonii? Odezwij się do nas!',
   credits:
     'Za przesłane materiały zbierasz kredyty do wykorzystania w narzędziu. Im więcej przyślesz, tym więcej ich masz.',
   creditsLink: 'Jak to działa',
   emailCta: 'Napisz e-mail',
-  note:
-    'Wysyłka zajmuje minutę. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
+  note: 'Wysyłka zajmuje minutę. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
 } as const;
 
 export const creditsPopover = {

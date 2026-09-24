@@ -13,7 +13,9 @@ import { anchors, routes } from '@/lib/routes';
         <span class="upload-drop-title">{uploadForm.dropTitle}</span>
         <span class="upload-drop-hint">{uploadForm.dropHint}</span>
       </label>
-      <a href={anchors.scanning} class="upload-back">{uploadForm.backToRules}</a>
+      <a href={anchors.scanning} class="upload-back">
+        {uploadForm.backToRules}
+      </a>
       <input
         id="upload-files"
         type="file"
@@ -27,12 +29,15 @@ import { anchors, routes } from '@/lib/routes';
     </div>
 
     <div class="upload-group">
-      <label class="field-label" for="upload-desc">{uploadForm.descriptionLabel}</label>
+      <label class="field-label" for="upload-desc">
+        {uploadForm.descriptionLabel}
+      </label>
       <textarea
         id="upload-desc"
         rows="3"
         class="field field-area"
-        placeholder={uploadForm.descriptionPlaceholder}></textarea>
+        placeholder={uploadForm.descriptionPlaceholder}
+      ></textarea>
     </div>
 
     <div class="upload-consents">
@@ -42,9 +47,12 @@ import { anchors, routes } from '@/lib/routes';
         <input type="checkbox" class="check-box" required />
         <span>
           <span class="consent-tag consent-tag-required">{uploadForm.required}</span>
-          Oświadczam, że zapoznałem/am się z <a href={anchors.terms} class="prose-link">Regulaminem</a>{' '}
-          i udzielam nieodpłatnej licencji niewyłącznej na korzystanie z przesłanego materiału na zasadach
-          w nim określonych.
+          Oświadczam, że zapoznałem/am się z{' '}
+          <a href={anchors.terms} class="prose-link">
+            Regulaminem
+          </a>{' '}
+          i udzielam nieodpłatnej licencji niewyłącznej na korzystanie z przesłanego materiału na
+          zasadach w nim określonych.
         </span>
       </label>
 
@@ -52,7 +60,10 @@ import { anchors, routes } from '@/lib/routes';
         <input type="checkbox" class="check-box" required />
         <span>
           <span class="consent-tag consent-tag-required">{uploadForm.required}</span>
-          Zapoznałem/am się z <a href={anchors.gdpr} class="prose-link">Klauzulą Informacyjną</a>{' '}
+          Zapoznałem/am się z{' '}
+          <a href={anchors.gdpr} class="prose-link">
+            Klauzulą Informacyjną
+          </a>{' '}
           dotyczącą przetwarzania danych osobowych (RODO).
         </span>
       </label>
@@ -61,8 +72,9 @@ import { anchors, routes } from '@/lib/routes';
         <input type="checkbox" class="check-box" checked data-wants-contact />
         <span>
           <span class="consent-tag">{uploadForm.optional}</span>
-          Chcę otrzymać bezpłatny wczesny dostęp do narzędzia na okres 12 miesięcy od jego uruchomienia.
-          Wyrażam zgodę na przetwarzanie mojego adresu e-mail w celu kontaktu w sprawie dostępu:
+          Chcę otrzymać bezpłatny wczesny dostęp do narzędzia na okres 12 miesięcy od jego
+          uruchomienia. Wyrażam zgodę na przetwarzanie mojego adresu e-mail w celu kontaktu w
+          sprawie dostępu:
         </span>
       </label>
 
@@ -86,7 +98,9 @@ import { anchors, routes } from '@/lib/routes';
     </div>
 
     <div class="upload-submit">
-      <Button type="submit" variant="primary" size="lg">{uploadForm.submit}</Button>
+      <Button type="submit" variant="primary" size="lg">
+        {uploadForm.submit}
+      </Button>
       <span class="upload-submit-note">{uploadForm.submitNote}</span>
     </div>
   </form>
@@ -94,7 +108,9 @@ import { anchors, routes } from '@/lib/routes';
   <div class="upload-sent" data-upload-sent hidden role="status">
     <h2 class="upload-sent-title">{uploadForm.sentTitle}</h2>
     <p class="upload-sent-body">{uploadForm.sentBody}</p>
-    <Button href={routes.home} variant="outline" size="sm">{uploadForm.sentCta}</Button>
+    <Button href={routes.home} variant="outline" size="sm">
+      {uploadForm.sentCta}
+    </Button>
   </div>
 </section>
 

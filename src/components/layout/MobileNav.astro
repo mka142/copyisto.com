@@ -11,28 +11,43 @@ import { primaryNav } from '@/content/site';
 ---
 
 <div class="nav-toggle-wrap" data-drawer>
-  <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Otwórz menu" data-drawer-toggle>
+  <button
+    type="button"
+    class="nav-toggle"
+    aria-expanded="false"
+    aria-label="Otwórz menu"
+    data-drawer-toggle
+  >
     <span class="nav-toggle-icon" aria-hidden="true">
-      <span></span><span></span><span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </span>
   </button>
 
   <div class="nav-scrim" data-drawer-scrim hidden></div>
 
-  <div class="nav-drawer" role="dialog" aria-modal="true" aria-label="Menu" data-drawer-panel hidden>
+  <div
+    class="nav-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu"
+    data-drawer-panel
+    hidden
+  >
     <nav class="nav-drawer-links">
-      {
-        primaryNav.map((item) =>
-          item.soon ? (
-            <span class="nav-drawer-soon">
-              {item.label}
-              <span class="nav-soon-badge">Wkrótce</span>
-            </span>
-          ) : (
-            <a href={item.href} class="nav-drawer-link" data-drawer-link>{item.label}</a>
-          ),
-        )
-      }
+      {primaryNav.map((item) =>
+        item.soon ? (
+          <span class="nav-drawer-soon">
+            {item.label}
+            <span class="nav-soon-badge">Wkrótce</span>
+          </span>
+        ) : (
+          <a href={item.href} class="nav-drawer-link" data-drawer-link>
+            {item.label}
+          </a>
+        ),
+      )}
     </nav>
     <div class="nav-drawer-credits">
       <CreditsPanel id="mobile" />
@@ -65,9 +80,9 @@ import { primaryNav } from '@/content/site';
 
     toggle.addEventListener('click', () => setOpen(Boolean(panel.hidden)));
     scrim.addEventListener('click', () => setOpen(false));
-    root.querySelectorAll('[data-drawer-link]').forEach((a) =>
-      a.addEventListener('click', () => setOpen(false)),
-    );
+    root
+      .querySelectorAll('[data-drawer-link]')
+      .forEach((a) => a.addEventListener('click', () => setOpen(false)));
 
     document.addEventListener('keydown', (event) => {
       if (panel.hidden) return;

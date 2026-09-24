@@ -11,7 +11,9 @@ import { anchors, mailto } from '@/lib/routes';
     <p class="help-lead">{closingCta.body}</p>
     <p class="help-credits">
       {closingCta.credits}{' '}
-      <a href={anchors.credits} class="help-credits-link">{closingCta.creditsLink}</a>
+      <a href={anchors.credits} class="help-credits-link">
+        {closingCta.creditsLink}
+      </a>
     </p>
     <Button href={mailto} variant="onDarkOutline" size="sm" class="help-mail">
       {closingCta.emailCta}
@@ -19,7 +21,9 @@ import { anchors, mailto } from '@/lib/routes';
   </div>
 
   <div class="help-cta">
-    <Button href={cta.formHref} variant="onDark" size="lg">{cta.donate}</Button>
+    <Button href={cta.formHref} variant="onDark" size="lg">
+      {cta.donate}
+    </Button>
     <span class="help-note">{closingCta.note}</span>
   </div>
 </div>

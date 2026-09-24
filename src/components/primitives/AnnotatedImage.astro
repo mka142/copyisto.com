@@ -16,29 +16,27 @@ const rects = boxes ? labelmeBoxes(boxes) : [];
 
 <figure class="annotated" data-reveal={boxes ? '' : undefined}>
   <Image src={src} alt={alt} widths={[640, 1280, 1920]} sizes="(max-width: 660px) 100vw, 640px" />
-  {
-    boxes && (
-      // Box coordinates live in the labelled image's pixels, so the overlay
-      // only has to match the image's aspect ratio, not its resolution.
-      <svg
-        class="annotated-boxes"
-        viewBox={`0 0 ${boxes.imageWidth} ${boxes.imageHeight}`}
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        {rects.map((r) => (
-          <rect
-            data-label={r.label}
-            x={r.x}
-            y={r.y}
-            width={r.width}
-            height={r.height}
-            style={`--x: ${(r.x / boxes.imageWidth).toFixed(3)}`}
-          />
-        ))}
-      </svg>
-    )
-  }
+  {boxes && (
+    // Box coordinates live in the labelled image's pixels, so the overlay
+    // only has to match the image's aspect ratio, not its resolution.
+    <svg
+      class="annotated-boxes"
+      viewBox={`0 0 ${boxes.imageWidth} ${boxes.imageHeight}`}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      {rects.map((r) => (
+        <rect
+          data-label={r.label}
+          x={r.x}
+          y={r.y}
+          width={r.width}
+          height={r.height}
+          style={`--x: ${(r.x / boxes.imageWidth).toFixed(3)}`}
+        />
+      ))}
+    </svg>
+  )}
 </figure>
 
 <script>

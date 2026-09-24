@@ -7,7 +7,9 @@ const { class: className } = Astro.props;
 
 <div class:list={['eyebrow', className]}>
   <span class="eyebrow-rule" aria-hidden="true"></span>
-  <span class="eyebrow-label"><slot /></span>
+  <span class="eyebrow-label">
+    <slot />
+  </span>
 </div>
 
 <style>

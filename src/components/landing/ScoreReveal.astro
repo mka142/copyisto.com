@@ -42,7 +42,12 @@ const callouts = score.callouts.map(({ text, from: [fx, fy], to: [tx, ty] }, i) 
   aria-label={score.alt}
 >
   <Fragment set:html={svg} />
-  <svg class="score-mistakes" viewBox={`0 ${-top} ${w} ${total}`} preserveAspectRatio="none" aria-hidden="true">
+  <svg
+    class="score-mistakes"
+    viewBox={`0 ${-top} ${w} ${total}`}
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
     <defs>
       <marker
         id="score-arrowhead"
@@ -57,30 +62,24 @@ const callouts = score.callouts.map(({ text, from: [fx, fy], to: [tx, ty] }, i) 
         <path class="score-arrowhead" d="M 0 1 L 9 5 L 0 9 z" />
       </marker>
     </defs>
-    {
-      mistakes.map((m, i) => (
-        <rect x={m.x} y={m.y} width={m.width} height={m.height} style={`--m: ${i}`} />
-      ))
-    }
-    {
-      callouts.map((c) => (
-        <g class="score-arrow" style={`--m: ${c.i}`}>
-          <path class="score-arrow-halo" d={c.d} />
-          <path class="score-arrow-line" d={c.d} marker-end="url(#score-arrowhead)" />
-        </g>
-      ))
-    }
+    {mistakes.map((m, i) => (
+      <rect x={m.x} y={m.y} width={m.width} height={m.height} style={`--m: ${i}`} />
+    ))}
+    {callouts.map((c) => (
+      <g class="score-arrow" style={`--m: ${c.i}`}>
+        <path class="score-arrow-halo" d={c.d} />
+        <path class="score-arrow-line" d={c.d} marker-end="url(#score-arrowhead)" />
+      </g>
+    ))}
   </svg>
-  {
-    callouts.map((c) => (
-      <span
-        class:list={['score-callout', c.above && 'score-callout-above']}
-        style={`left: ${c.left}; top: ${c.top}; --m: ${c.i}`}
-      >
-        {c.text}
-      </span>
-    ))
-  }
+  {callouts.map((c) => (
+    <span
+      class:list={['score-callout', c.above && 'score-callout-above']}
+      style={`left: ${c.left}; top: ${c.top}; --m: ${c.i}`}
+    >
+      {c.text}
+    </span>
+  ))}
 </figure>
 
 <script>

@@ -5,7 +5,14 @@ import { cta } from '@/content/site';
 ---
 
 <div class="credits-anchor" data-popover>
-  <Button type="button" variant="outline" size="xs" aria-expanded="false" aria-haspopup="dialog" data-popover-toggle>
+  <Button
+    type="button"
+    variant="outline"
+    size="xs"
+    aria-expanded="false"
+    aria-haspopup="dialog"
+    data-popover-toggle
+  >
     {cta.checkCredits}
   </Button>
   <div class="credits-panel" role="dialog" aria-label={cta.checkCredits} data-popover-panel hidden>

@@ -11,23 +11,25 @@ import { routes } from '@/lib/routes';
   <Logo href={routes.home} collapsible />
   <nav class="landing-nav" aria-label="Główna">
     <div class="landing-nav-links">
-      {
-        primaryNav.map((item) =>
-          item.soon ? (
-            <span class="nav-soon">
-              {item.label}
-              <span class="nav-soon-badge">Wkrótce</span>
-            </span>
-          ) : (
-            <a href={item.href} class="nav-link">{item.label}</a>
-          ),
-        )
-      }
+      {primaryNav.map((item) =>
+        item.soon ? (
+          <span class="nav-soon">
+            {item.label}
+            <span class="nav-soon-badge">Wkrótce</span>
+          </span>
+        ) : (
+          <a href={item.href} class="nav-link">
+            {item.label}
+          </a>
+        ),
+      )}
     </div>
     <div class="landing-nav-credits">
       <CreditsPopover />
     </div>
-    <Button href={cta.formHref} variant="solid" size="xs" compact>{cta.openForm}</Button>
+    <Button href={cta.formHref} variant="solid" size="xs" compact>
+      {cta.openForm}
+    </Button>
     <MobileNav />
   </nav>
 </header>

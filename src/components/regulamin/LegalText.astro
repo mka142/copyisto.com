@@ -20,17 +20,17 @@ const pattern = new RegExp(
 const parts = needles.length ? text.split(pattern) : [text];
 ---
 
-{
-  parts.map((part) =>
-    part === CONTACT_EMAIL ? (
-      <a href={mailto} class="prose-link">{part}</a>
-    ) : accents.includes(part) ? (
-      <span class="legal-accent">{part}</span>
-    ) : (
-      <Fragment>{part}</Fragment>
-    ),
-  )
-}
+{parts.map((part) =>
+  part === CONTACT_EMAIL ? (
+    <a href={mailto} class="prose-link">
+      {part}
+    </a>
+  ) : accents.includes(part) ? (
+    <span class="legal-accent">{part}</span>
+  ) : (
+    <Fragment>{part}</Fragment>
+  ),
+)}
 
 <style is:global>
   /* Global because these spans are emitted into a parent's prose. */

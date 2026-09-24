@@ -20,6 +20,8 @@ export function labelmeBoxes({ shapes }: Labelme): Box[] {
     const [[x1, y1], [x2, y2]] = points;
     const width = Math.abs(x2 - x1);
     const height = Math.abs(y2 - y1);
-    return width && height ? [{ label, x: Math.min(x1, x2), y: Math.min(y1, y2), width, height }] : [];
+    return width && height
+      ? [{ label, x: Math.min(x1, x2), y: Math.min(y1, y2), width, height }]
+      : [];
   });
 }

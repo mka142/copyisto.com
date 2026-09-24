@@ -27,7 +27,8 @@ function measure(tag: string): Symbol {
   if (tag.startsWith('<use')) {
     return { tag, x: Number(attr(tag, 'x')), y: Number(attr(tag, 'y')), frame: false };
   }
-  const [, , , , dx = 0, dy = 0] = (attr(tag, 'transform') ?? '').match(/-?[\d.]+/g)?.map(Number) ?? [];
+  const [, , , , dx = 0, dy = 0] =
+    (attr(tag, 'transform') ?? '').match(/-?[\d.]+/g)?.map(Number) ?? [];
   const [x1, y1, x2, y2] = (attr(tag, 'd') ?? '').match(/-?[\d.]+/g)!.map(Number);
   const straight = /^M [\d. ]+L [\d. ]+$/.test(attr(tag, 'd')!.trim());
   const staffLine = straight && Math.abs(y2 - y1) < 0.01 && Math.abs(x2 - x1) > 100;

@@ -7,8 +7,7 @@
  */
 
 export type LegalBlock =
-  | { kind: 'paragraph'; text: string }
-  | { kind: 'placeholder'; label: string; text: string };
+  { kind: 'paragraph'; text: string } | { kind: 'placeholder'; label: string; text: string };
 
 export interface LegalClause {
   /** Set when the clause is a link target in its own right. */
@@ -127,7 +126,9 @@ export const legalDocuments: LegalDocument[] = [
       {
         heading: '§7. Reklamacje i postanowienia końcowe',
         blocks: [
-          LEGAL('tryb reklamacyjny, adres kontaktowy, zmiany regulaminu, prawo właściwe i sąd właściwy.'),
+          LEGAL(
+            'tryb reklamacyjny, adres kontaktowy, zmiany regulaminu, prawo właściwe i sąd właściwy.',
+          ),
         ],
       },
     ],

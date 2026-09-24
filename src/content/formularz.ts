@@ -76,7 +76,10 @@ export const credits = {
     'Każdy przesłany materiał zasila Twoje konto kredytami, które wykorzystasz w narzędziu po jego uruchomieniu. ' +
     'Kredyty nie wygasają razem z okresem testów.',
   points: [
-    { number: '01', body: 'Wysyłasz materiał, my go weryfikujemy i naliczamy kredyty na Twoje konto.' },
+    {
+      number: '01',
+      body: 'Wysyłasz materiał, my go weryfikujemy i naliczamy kredyty na Twoje konto.',
+    },
     {
       number: '02',
       body: 'Liczy się objętość i jakość — czytelne skany przeliczają się w pełni, nieczytelne prosimy o powtórkę.',
@@ -86,7 +89,8 @@ export const credits = {
       body: 'Stan konta sprawdzisz w każdej chwili przyciskiem „Sprawdź swoje kredyty” na stronie głównej.',
     },
   ],
-  footnoteLead: 'Dokładny przelicznik podamy przy uruchomieniu narzędzia. Zasady naliczania opisuje ',
+  footnoteLead:
+    'Dokładny przelicznik podamy przy uruchomieniu narzędzia. Zasady naliczania opisuje ',
   footnoteLink: '§6 Regulaminu',
   footnoteTail: '.',
 } as const;

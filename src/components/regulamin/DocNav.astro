@@ -4,13 +4,11 @@ import { docNav, docNavCaveat, docNavLabel } from '@/content/legal';
 
 <nav class="doc-nav" aria-label={docNavLabel}>
   <span class="doc-nav-label">{docNavLabel}</span>
-  {
-    docNav.map((item) => (
-      <a href={item.href} class:list={['doc-nav-link', item.nested && 'doc-nav-link-nested']}>
-        {item.label}
-      </a>
-    ))
-  }
+  {docNav.map((item) => (
+    <a href={item.href} class:list={['doc-nav-link', item.nested && 'doc-nav-link-nested']}>
+      {item.label}
+    </a>
+  ))}
   <span class="doc-nav-caveat">{docNavCaveat}</span>
 </nav>
 

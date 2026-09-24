@@ -24,7 +24,9 @@ const { id } = Astro.props;
       placeholder={EMAIL_PLACEHOLDER}
       data-credits-email
     />
-    <Button type="submit" variant="solid" size="sm">{creditsPopover.submit}</Button>
+    <Button type="submit" variant="solid" size="sm">
+      {creditsPopover.submit}
+    </Button>
   </form>
 
   <div class="credits-result" data-credits-result hidden>

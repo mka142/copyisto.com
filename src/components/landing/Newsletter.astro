@@ -23,13 +23,17 @@ import { anchors } from '@/lib/routes';
           placeholder={EMAIL_PLACEHOLDER}
           data-newsletter-email
         />
-        <Button type="submit" variant="onDark" size="md">{newsletter.submit}</Button>
+        <Button type="submit" variant="onDark" size="md">
+          {newsletter.submit}
+        </Button>
       </div>
       <label class="check check-sm">
         <input type="checkbox" class="check-box" required />
         <span>
           {newsletter.consent}{' '}
-          <a href={anchors.gdpr} class="prose-link">{newsletter.consentLink}</a>
+          <a href={anchors.gdpr} class="prose-link">
+            {newsletter.consentLink}
+          </a>
         </span>
       </label>
     </form>
