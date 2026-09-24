@@ -85,4 +85,5 @@ Uploads accept files up to 20 MB, which exceeds a serverless request body limit,
 
 ## Deployment
 
-`bun run build` writes a fully static site to `dist/`, ready for Cloudflare or any other static host.
+`bun run build` writes a fully static site to `dist/`.
+Cloudflare Workers Builds then runs `npx wrangler deploy`, which uploads `dist/` as static assets per `wrangler.jsonc`.
