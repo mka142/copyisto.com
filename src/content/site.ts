@@ -15,8 +15,8 @@ export interface NavLink {
 }
 
 export const primaryNav: NavLink[] = [
-  { href: anchors.howItWorks, label: 'Jak to działa' },
-  { href: anchors.why, label: 'Dlaczego harmonia' },
+  { href: anchors.howItWorks, label: 'Jak to działa?' },
+  { href: anchors.why, label: 'Dlaczego harmonia?' },
   { href: anchors.team, label: 'Zespół' },
   { href: '#', label: 'Blog', soon: true },
 ];

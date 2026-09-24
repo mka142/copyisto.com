@@ -1,8 +1,5 @@
 {
-  // Cloudflare Workers Builds runs `bun run build`, then `npx wrangler deploy`.
-  // The site is fully static, so the Worker is assets only: no script, just dist/.
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Must match the Worker's name in the Cloudflare dashboard.
   "name": "copyisto-com",
   "compatibility_date": "2026-09-24",
   "assets": {
