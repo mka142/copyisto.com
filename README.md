@@ -31,12 +31,13 @@ npm works too, but resolves its own tree.
 
 ## Scripts
 
-| Script | Description |
-|---|---|
-| `dev` | Start the dev server |
-| `build` | Lint, type check and build to `dist/` |
-| `preview` | Serve the production build locally |
-| `lint` | Lint all CSS, including the `<style>` block in every component |
+| Script    | Description                                                                          |
+| --------- | ------------------------------------------------------------------------------------ |
+| `dev`     | Start the dev server                                                                 |
+| `build`   | Lint, type check and build to `dist/`                                                |
+| `preview` | Serve the production build locally                                                   |
+| `lint`    | Lint all CSS, including the `<style>` block in every component, and check formatting |
+| `format`  | Format the repo with Prettier                                                        |
 
 ## Structure
 

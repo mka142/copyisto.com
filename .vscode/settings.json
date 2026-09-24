@@ -2,6 +2,9 @@
   // Let Stylelint own CSS diagnostics, including inside .astro <style> blocks.
   "stylelint.validate": ["css", "astro"],
   "css.validate": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "prettier.documentSelectors": ["**/*.astro"],
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "explicit"
   }
