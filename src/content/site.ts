@@ -34,3 +34,12 @@ export const cta = {
   checkCredits: 'Sprawdź swoje kredyty',
   formHref: routes.form,
 } as const;
+
+export const notFound = {
+  title: 'Nie znaleziono strony',
+  eyebrow: 'Błąd 404',
+  titleLead: 'Tej strony nie ma',
+  titleScript: 'w naszym zeszycie',
+  body: 'Adres mógł się zmienić albo zawierać literówkę. Zacznij od strony głównej lub przekaż nam swoje materiały.',
+  home: 'Wróć na stronę główną',
+} as const;

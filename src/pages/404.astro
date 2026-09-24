@@ -1,0 +1,80 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/layout/PageHeader.astro';
+import PageFooter from '@/components/layout/PageFooter.astro';
+import Eyebrow from '@/components/primitives/Eyebrow.astro';
+import Button from '@/components/primitives/Button.astro';
+import { cta, notFound, site } from '@/content/site';
+import { routes } from '@/lib/routes';
+---
+
+<Base title={notFound.title}>
+  <div class="page">
+    <PageHeader logoHref={routes.home} />
+
+    <main class="page-main gutter">
+      <div class="not-found">
+        <Eyebrow class="not-found-eyebrow">{notFound.eyebrow}</Eyebrow>
+        <h1 class="not-found-title">
+          {notFound.titleLead} <em class="not-found-script">{notFound.titleScript}</em>
+        </h1>
+        <p class="not-found-body">{notFound.body}</p>
+        <div class="not-found-actions">
+          <Button href={routes.home} variant="primary" size="md">
+            {notFound.home}
+          </Button>
+          <Button href={cta.formHref} variant="outline" size="md">
+            {cta.openForm}
+          </Button>
+        </div>
+      </div>
+    </main>
+
+    <PageFooter note={site.domain} />
+  </div>
+</Base>
+
+<style>
+  .not-found {
+    max-width: 720px;
+    margin-inline: auto;
+    padding-block: var(--space-section);
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.not-found-eyebrow) {
+    margin-bottom: 22px;
+  }
+
+  .not-found-title {
+    margin: 0 0 22px;
+    font-family: var(--font-serif);
+    font-size: clamp(34px, 4vw, 56px);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+    text-wrap: pretty;
+  }
+
+  .not-found-script {
+    font-family: var(--font-script);
+    font-style: italic;
+  }
+
+  .not-found-body {
+    max-width: 52ch;
+    margin: 0 0 32px;
+    color: var(--color-ink-soft);
+    font-size: clamp(17px, 1.3vw, 19px);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-md);
+  }
+</style>
