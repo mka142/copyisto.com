@@ -73,7 +73,8 @@ Components reference them with `var(--…)` and never write literal values.
 The three forms are wired but not connected.
 They route through `src/lib/submissions.ts`, where each function currently resolves `{ ok: true }`.
 
-`@astrojs/vercel` is configured, so a server endpoint can be added at `src/pages/api/` with `export const prerender = false` while the pages stay static.
+The site has no adapter yet.
+The upload endpoint will need one, for example `@astrojs/cloudflare`, with the route at `src/pages/api/` opting out of prerendering via `export const prerender = false` while the pages stay static.
 Uploads accept files up to 20 MB, which exceeds a serverless request body limit, so the real implementation should issue a signed URL and let the browser upload directly to storage.
 
 ## Known gaps
@@ -84,4 +85,4 @@ Uploads accept files up to 20 MB, which exceeds a serverless request body limit,
 
 ## Deployment
 
-Deploys to Vercel as static output.
+`bun run build` writes a fully static site to `dist/`, ready for Cloudflare or any other static host.

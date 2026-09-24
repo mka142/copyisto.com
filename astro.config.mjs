@@ -1,11 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
 
+// Fully static: `astro build` writes plain files to dist/ for any static host.
+// A server endpoint (the upload needs one) will need an adapter, e.g.
+// @astrojs/cloudflare, with that route opting out via `export const prerender = false`.
 export default defineConfig({
   site: 'https://copyisto.com',
-  // The adapter is here so a server endpoint can be added later (the upload
-  // needs one). Pages stay prerendered; opt a route out with
-  // `export const prerender = false`.
-  adapter: vercel(),
 });
