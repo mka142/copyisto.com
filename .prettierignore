@@ -1,6 +1,5 @@
 # generated or vendored
 dist/
-.vercel/
 .astro/
 node_modules/
 bun.lock
