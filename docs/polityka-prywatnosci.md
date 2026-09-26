@@ -20,6 +20,7 @@
 1. Dane osobowe przetwarzane są w następujących celach:
    - udostępnienie Serwisu oraz zapewnienie jego bezpieczeństwa – na podstawie prawnie uzasadnionego interesu Administratora (art. 6 ust. 1 lit. f RODO),
    - analiza sposobu korzystania z Serwisu, mierzenie skuteczności działań promocyjnych oraz ulepszanie Serwisu za pomocą narzędzia PostHog – na podstawie zgody Użytkownika (art. 6 ust. 1 lit. a RODO),
+   - prowadzenie zbiorczych statystyk odwiedzin Serwisu (liczba wyświetleń podstron, źródło wejścia, w tym parametry kampanii w adresie, kraj) – bez zapisywania adresu IP i bez użycia plików cookies – na podstawie prawnie uzasadnionego interesu Administratora (art. 6 ust. 1 lit. f RODO),
    - odpowiedź na wiadomości przesłane drogą e-mailową i prowadzenie korespondencji – na podstawie prawnie uzasadnionego interesu Administratora (art. 6 ust. 1 lit. f RODO), a jeżeli korespondencja dotyczy zawarcia umowy – w celu podjęcia działań na żądanie Użytkownika przed jej zawarciem (art. 6 ust. 1 lit. b RODO),
    - ustalenie, dochodzenie lub obrona ewentualnych roszczeń – na podstawie prawnie uzasadnionego interesu Administratora (art. 6 ust. 1 lit. f RODO).
 2. Podanie danych osobowych jest dobrowolne. Bez podania adresu e-mail Administrator nie będzie jednak mógł odpowiedzieć na wiadomość.
@@ -31,7 +32,7 @@
    - przybliżoną lokalizację (kraj, miasto) ustaloną na podstawie adresu IP,
    - po wyrażeniu zgody na analitykę: losowy identyfikator przeglądarki zapisany w pliku cookie, informacje o kliknięciach, przewijaniu i czasie spędzonym w Serwisie, rozdzielczość ekranu i język, a także nagrania sesji (zapis ruchów kursora, kliknięć i przewijania, z automatycznie ukrytą treścią pól formularzy),
    - w przypadku kontaktu e-mailowego: adres e-mail, imię i nazwisko (jeżeli zostały podane), treść wiadomości oraz inne dane przekazane przez Użytkownika.
-2. Jeżeli Użytkownik nie wyrazi zgody na analitykę, narzędzie PostHog nie jest uruchamiane i nie zbiera żadnych danych.
+2. Jeżeli Użytkownik nie wyrazi zgody na analitykę, narzędzie PostHog nie jest uruchamiane i nie zbiera żadnych danych. Serwis prowadzi wówczas wyłącznie zbiorcze statystyki odwiedzin opisane w pkt III, bez zapisywania adresu IP i bez użycia plików cookies.
 3. Jeżeli Użytkownik, który wyraził zgodę na analitykę, poda następnie Administratorowi adres e-mail lub założy konto, Administrator może powiązać wcześniejszą aktywność w Serwisie z tym adresem lub kontem.
 
 ## V. Okres przetwarzania danych osobowych

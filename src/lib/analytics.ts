@@ -21,6 +21,7 @@ export function startAnalytics() {
         'PostHog is not configured: set PUBLIC_POSTHOG_PROJECT_TOKEN and PUBLIC_POSTHOG_HOST.',
       );
     }
+    clearQueryString();
     return;
   }
 
@@ -42,6 +43,13 @@ export function startAnalytics() {
   const token = PUBLIC_POSTHOG_PROJECT_TOKEN;
   const host = PUBLIC_POSTHOG_HOST;
   loading = import('posthog-js').then(({ default: posthog }) => {
+    // The first $pageview carries the campaign parameters; once it is sent,
+    // PostHog keeps them for the session and the address bar can be tidied.
+    const stopWatching = posthog.on('eventCaptured', (data: { event?: string }) => {
+      if (data?.event !== '$pageview') return;
+      stopWatching();
+      clearQueryString();
+    });
     posthog.init(token, {
       api_host: host,
       defaults: '2026-01-30',
@@ -78,6 +86,16 @@ export function stopAnalytics() {
     posthog.set_config({ disable_persistence: true, opt_out_capturing_by_default: true });
   }
   clearPosthogStorage();
+}
+
+/**
+ * Drops the query string (utm_*, fbclid and the like) from the address bar
+ * without a reload, so a copied link does not carry the original campaign.
+ * Only called once the parameters have been read, or will never be read.
+ */
+export function clearQueryString() {
+  if (!location.search) return;
+  history.replaceState(history.state, '', location.pathname + location.hash);
 }
 
 function clearPosthogStorage() {

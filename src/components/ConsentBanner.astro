@@ -12,25 +12,26 @@ import { routes } from '@/lib/routes';
     Pliki cookies
   </h2>
   <p class="consent-text">
-    Za Twoją zgodą korzystamy z PostHog do analityki i nagrań sesji, żeby wiedzieć, co na stronie
-    działa. Szczegóły znajdziesz w{' '}
+    Chcemy wiedzieć, jak korzystasz ze strony, żeby ją ulepszać. Za&nbsp;Twoją zgodą użyjemy do tego
+    analitycznych plików cookies. Szczegóły znajdziesz w&nbsp;
     <a href={routes.privacy} class="prose-link">
       polityce prywatności
     </a>
     .
   </p>
   <div class="consent-actions">
-    <Button type="button" variant="solid" size="sm" data-consent-choice="granted">
-      Akceptuję
-    </Button>
-    <Button type="button" variant="solid" size="sm" data-consent-choice="denied">
+    <!-- Accept sits on the right. -->
+    <Button type="button" variant="outline" size="sm" data-consent-choice="denied">
       Odrzucam
+    </Button>
+    <Button type="button" variant="primary" size="sm" data-consent-choice="granted">
+      Akceptuję
     </Button>
   </div>
 </section>
 
 <script>
-  import { startAnalytics, stopAnalytics } from '@/lib/analytics';
+  import { clearQueryString, startAnalytics, stopAnalytics } from '@/lib/analytics';
   import { readConsent, writeConsent, type Consent } from '@/lib/consent';
 
   const banner = document.querySelector<HTMLElement>('[data-consent]')!;
@@ -51,6 +52,8 @@ import { routes } from '@/lib/routes';
 
   const consent = readConsent();
   if (consent === 'granted') startAnalytics();
+  // Without consent nothing will read the campaign parameters, so drop them now.
+  if (consent === 'denied') clearQueryString();
   if (consent === null) open(null);
 
   // Capture phase on window runs before PostHog's own click listener, so a
@@ -68,7 +71,10 @@ import { routes } from '@/lib/routes';
     const value = choice.dataset.consentChoice as Consent;
     writeConsent(value);
     if (value === 'granted') startAnalytics();
-    else stopAnalytics();
+    else {
+      stopAnalytics();
+      clearQueryString();
+    }
     close();
   }
 
@@ -91,6 +97,9 @@ import { routes } from '@/lib/routes';
     left: 16px;
     z-index: 70;
     max-width: 440px;
+
+    /* Bottom right, clear of the main calls to action on the left. */
+    margin-left: auto;
     padding: 20px 22px 22px;
     border: 1px solid var(--color-rule-30);
     background: var(--color-paper);
@@ -118,7 +127,8 @@ import { routes } from '@/lib/routes';
     text-wrap: pretty;
   }
 
-  /* Two equal buttons: same size, same style, neither one the default. */
+  /* Same size and full-contrast labels for both; only the accent differs,
+     so rejecting stays exactly as easy to read and reach as accepting. */
   .consent-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;

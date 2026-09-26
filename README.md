@@ -37,6 +37,7 @@ npm works too, but resolves its own tree.
 | `build`   | Lint, type check and build to `dist/`                                                |
 | `preview` | Serve the production build locally                                                   |
 | `lint`    | Lint all CSS, including the `<style>` block in every component, and check formatting |
+| `test`    | Run the page-view Worker's checks with the built-in Node test runner                 |
 | `format`  | Format the repo with Prettier                                                        |
 
 ## Structure
@@ -51,6 +52,7 @@ src/
 ├─ styles/         global.css: design tokens, reset, shared classes
 └─ assets/         illustrations inlined at build
 docs/              the privacy policy, rendered verbatim at /polityka-prywatnosci
+worker/            the Worker in front of the static site: counts page views
 ```
 
 Every component is a single `.astro` file.
@@ -95,12 +97,35 @@ Until the answer is `granted`, `src/lib/analytics.ts` does not even download `po
 Withdrawing consent through "Ustawienia cookies" in the footer opts out, stops session recording and deletes every `ph_` cookie and storage key.
 
 Once running, PostHog autocaptures clicks and pageviews and records sessions with inputs masked.
+It also reads `utm_*` parameters from the landing URL, so tag shared links like `https://copyisto.com/?utm_source=facebook&utm_medium=social&utm_campaign=post-2026-09-30`.
+The query string is removed from the address bar once it has been read: after the first `$pageview` with consent, straight away without it.
 On top of that, any element tagged `data-track="event_name"` sends that named event on click, with every other `data-track-*` attribute as a property.
 The tagged events are `form_cta_clicked`, `email_clicked`, `dm_clicked` and `social_clicked`, each with a `location`, `channel` or `network`.
 
 The site has no adapter yet.
 The upload endpoint will need one, for example `@astrojs/cloudflare`, with the route at `src/pages/api/` opting out of prerendering via `export const prerender = false` while the pages stay static.
 Uploads accept files up to 20 MB, which exceeds a serverless request body limit, so the real implementation should issue a signed URL and let the browser upload directly to storage.
+
+### Page views without consent
+
+`worker/index.js` runs in front of the static site for every page (not for `/_astro/` or `/assets/`).
+It writes one data point per page view to the `copyisto_visits` Workers Analytics Engine dataset, then serves the page unchanged.
+It records the path, the `utm_source`, `utm_medium`, `utm_campaign` and `utm_content` parameters, the referring site, the country and the status code.
+It stores no IP address, sets no cookie, runs nothing in the browser and skips link-preview bots such as `facebookexternalhit`.
+
+Query the counts with the SQL API, using an API token with the Account Analytics read permission:
+
+```sh
+curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/analytics_engine/sql" \
+  -H "Authorization: Bearer $API_TOKEN" \
+  -d "SELECT blob2 AS source, blob4 AS campaign, SUM(_sample_interval) AS visits
+      FROM copyisto_visits
+      WHERE timestamp > NOW() - INTERVAL '30' DAY
+      GROUP BY source, campaign
+      ORDER BY visits DESC"
+```
+
+The columns are `blob1` path, `blob2` source, `blob3` medium, `blob4` campaign, `blob5` content, `blob6` referrer, `blob7` country and `blob8` status.
 
 ## Known gaps
 
