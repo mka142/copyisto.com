@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { team, teamStatement } from '@/content/team';
 ---
 
@@ -9,13 +10,30 @@ import { team, teamStatement } from '@/content/team';
     <div class="team-grid">
       {team.map((member) => (
         <div class="team-member">
-          <div class="team-avatar" aria-hidden="true">
-            Placeholder
-            <br />
-            zdjęcie
-          </div>
+          {member.photo ? (
+            <Image
+              class="team-avatar team-photo"
+              src={member.photo}
+              alt={`${member.name} - zdjęcie`}
+              widths={[160, 320, 480]}
+              sizes="160px"
+              quality={90}
+              loading="lazy"
+            />
+          ) : (
+            <div class="team-avatar" aria-hidden="true">
+              Placeholder
+              <br />
+              zdjęcie
+            </div>
+          )}
           <div class="team-member-copy">
             <h3 class="team-name">{member.name}</h3>
+            {member.url && (
+              <a class="team-link" href={member.url} target="_blank" rel="noopener">
+                {new URL(member.url).hostname} ↗
+              </a>
+            )}
             <p class:list={['team-bio', member.emphasised && 'team-bio-quoted']}>{member.bio}</p>
           </div>
         </div>
@@ -50,12 +68,15 @@ import { team, teamStatement } from '@/content/team';
 
   .team-member {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: var(--gap-lg);
     min-width: 0;
   }
 
+  /* Wraps under the photo once the column can't fit ~200px of text beside it. */
   .team-member-copy {
+    flex: 1 1 200px;
     min-width: 0;
   }
 
@@ -64,8 +85,8 @@ import { team, teamStatement } from '@/content/team';
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 96px;
-    height: 96px;
+    width: 160px;
+    height: 160px;
     padding: 8px;
     border: 1px solid var(--color-rule-30);
     border-radius: 50%;
@@ -79,11 +100,22 @@ import { team, teamStatement } from '@/content/team';
     text-transform: uppercase;
   }
 
+  .team-photo {
+    padding: 0;
+    object-fit: cover;
+  }
+
   .team-name {
     margin: 0 0 8px;
     font-family: var(--font-serif);
     font-size: 25px;
     font-weight: 500;
+  }
+
+  .team-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: var(--text-sm);
   }
 
   .team-bio {
