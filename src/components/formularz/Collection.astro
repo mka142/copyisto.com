@@ -1,7 +1,7 @@
 ---
 import Button from '@/components/primitives/Button.astro';
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import Contact from '@/components/landing/Contact.astro';
+import Newsletter from '@/components/landing/Newsletter.astro';
 import { collection } from '@/content/formularz';
 import { icons } from '@/lib/icons';
 import { mailto, social } from '@/lib/routes';
@@ -57,12 +57,7 @@ const channels = [
     </div>
 
     <div class="collection-card collection-remote">
-      <Contact
-        eyebrow={remote.eyebrow}
-        title={remote.title}
-        body={remote.body}
-        location="collection_remote"
-      />
+      <Newsletter eyebrow={remote.eyebrow} title={remote.title} body={remote.body} />
     </div>
   </div>
 </section>
@@ -95,11 +90,14 @@ const channels = [
   .collection-remote {
     background: var(--color-dark);
     color: var(--color-dark-fg);
+
+    /* Native controls (the newsletter checkbox) render their dark variant. */
+    color-scheme: dark;
   }
 
-  /* The contact block lays itself out in two columns for the wide footer;
-     in a half-width card intro and button stack. */
-  .collection-remote :global(.contact) {
+  /* The newsletter lays itself out in two columns for the wide footer;
+     in a half-width card intro and form stack. */
+  .collection-remote :global(.news) {
     grid-template-columns: minmax(0, 1fr);
   }
 

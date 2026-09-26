@@ -1,12 +1,12 @@
 ---
-import Contact from '@/components/landing/Contact.astro';
+import Newsletter from '@/components/landing/Newsletter.astro';
 import FooterBar from './FooterBar.astro';
 import { site } from '@/content/site';
 ---
 
 <footer class="landing-footer gutter">
   <div class="landing-footer-grid">
-    <Contact location="landing_footer" />
+    <Newsletter />
   </div>
 
   <div class="landing-footer-bar">
@@ -20,6 +20,9 @@ import { site } from '@/content/site';
     padding-bottom: clamp(32px, 4vw, 48px);
     background: var(--color-dark);
     color: var(--color-dark-fg);
+
+    /* Native controls (the newsletter checkbox) render their dark variant. */
+    color-scheme: dark;
   }
 
   .landing-footer-grid,

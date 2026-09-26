@@ -37,7 +37,7 @@ export const collection = {
   remote: {
     eyebrow: 'Spoza Wrocławia?',
     title: 'Formularz online pojawi się wkrótce.',
-    body: 'Napisz do nas, a damy znać, gdy będzie można przesłać skany z dowolnego miejsca.',
+    body: 'Zostaw adres, a damy znać, gdy będzie można przesłać skany z dowolnego miejsca.',
   },
 } as const;
 

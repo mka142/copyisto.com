@@ -306,8 +306,8 @@ a:hover {
 
 /* ------------------------------------------------------- form controls */
 
-/* Shared by the upload form, the newsletter (both on their own branches)
-   and the credits lookup.
+/* Shared by the upload form (on its own branch), the newsletter and the
+   credits lookup.
    Scoped styles cannot cross a component boundary, so these live here. */
 
 .field {
