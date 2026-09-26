@@ -22,11 +22,11 @@ export const primaryNav: NavLink[] = [
   { href: '#', label: 'Sprawdź swoje kredyty', soon: true },
 ];
 
-export const legalNav: NavLink[] = [
-  { href: anchors.terms, label: 'Regulamin' },
-  { href: anchors.gdpr, label: 'Klauzula RODO' },
-  { href: anchors.privacy, label: 'Polityka prywatności' },
-];
+export const footerNav = {
+  privacy: { href: routes.privacy, label: 'Polityka prywatności' },
+  /** A button, not a link: it reopens the consent banner. */
+  cookieSettings: 'Ustawienia cookies',
+} as const;
 
 export const cta = {
   openForm: 'Przekaż zeszyt',

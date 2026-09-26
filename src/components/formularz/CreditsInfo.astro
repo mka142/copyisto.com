@@ -1,7 +1,6 @@
 ---
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
 import { credits } from '@/content/formularz';
-import { anchors } from '@/lib/routes';
 ---
 
 <section class="credits-info gutter" id="kredyty">
@@ -22,13 +21,7 @@ import { anchors } from '@/lib/routes';
           </p>
         </li>
       ))}
-      <li class="credits-footnote">
-        {credits.footnoteLead}
-        <a href={anchors.creditsClause} class="prose-link">
-          {credits.footnoteLink}
-        </a>
-        {credits.footnoteTail}
-      </li>
+      <li class="credits-footnote">{credits.footnote}</li>
     </ul>
   </div>
 </section>

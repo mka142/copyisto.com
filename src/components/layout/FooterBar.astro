@@ -1,14 +1,12 @@
 ---
-import { legalNav, site } from '@/content/site';
+import { footerNav, site } from '@/content/site';
 import { icons } from '@/lib/icons';
 import { profiles } from '@/lib/routes';
 
 interface Props {
-  /** The Regulamin page hides the legal links, since it is those documents. */
-  links?: boolean;
   note: string;
 }
-const { links = true, note } = Astro.props;
+const { note } = Astro.props;
 
 // Each profile shows only once its URL is set.
 const socials = [
@@ -21,12 +19,12 @@ const socials = [
 <div class="footer-bar">
   <span class="footer-word">{site.name}</span>
   <div class="footer-links">
-    {links &&
-      legalNav.map((item) => (
-        <a href={item.href} class="footer-link">
-          {item.label}
-        </a>
-      ))}
+    <a href={footerNav.privacy.href} class="footer-link">
+      {footerNav.privacy.label}
+    </a>
+    <button type="button" class="footer-link footer-link-button" data-consent-open>
+      {footerNav.cookieSettings}
+    </button>
     {socials.length > 0 && (
       <ul class="footer-socials">
         {socials.map((s) => (
@@ -84,6 +82,15 @@ const socials = [
   .footer-link:hover {
     color: var(--color-dark-fg-strong);
     text-decoration: none;
+  }
+
+  .footer-link-button {
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--text-meta);
   }
 
   .footer-socials {

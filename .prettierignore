@@ -6,6 +6,7 @@ node_modules/
 bun.lock
 
 # exported artwork and data, kept byte for byte as delivered
+docs/polityka-prywatnosci.md
 public/
 src/assets/
 temp_data/

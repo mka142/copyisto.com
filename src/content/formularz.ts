@@ -63,8 +63,5 @@ export const credits = {
       soon: true,
     },
   ],
-  footnoteLead:
-    'Dokładny przelicznik podamy przy uruchomieniu narzędzia. Zasady naliczania opisuje ',
-  footnoteLink: '§6 Regulaminu',
-  footnoteTail: '.',
+  footnote: 'Dokładny przelicznik podamy przy uruchomieniu narzędzia.',
 } as const;

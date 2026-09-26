@@ -2,7 +2,7 @@
 
 Marketing site for Copyisto, a tool that reads handwritten music notation and checks four-part harmony exercises for errors.
 
-Three static pages in Polish: the landing page, a page for contributing notebooks, and the legal documents.
+Three static pages in Polish: the landing page, a page for contributing notebooks, and the privacy policy.
 
 Built with [Astro](https://astro.build). No client framework.
 
@@ -47,9 +47,10 @@ src/
 ├─ layouts/        Base.astro: head, metadata, icons
 ├─ components/     one file per component: markup, styles and script
 ├─ content/        all copy, typed
-├─ lib/            routes and the form submission seam
+├─ lib/            routes, icons, cookie consent and analytics
 ├─ styles/         global.css: design tokens, reset, shared classes
 └─ assets/         illustrations inlined at build
+docs/              the privacy policy, rendered verbatim at /polityka-prywatnosci
 ```
 
 Every component is a single `.astro` file.
@@ -78,7 +79,7 @@ The upload form waits on the `feat/upload-form` branch.
 The newsletter waits on the `feat/newsletter` branch until its November launch.
 Merge that branch to bring the sign-up form back.
 Until then the landing footer and the contribution page offer a "write to us" e-mail link instead.
-Every e-mail button and the address in the legal text use the `EMAIL_ADDRESS` build variable, which defaults to `kontakt@copyisto.com`.
+Every e-mail button uses the `EMAIL_ADDRESS` build variable, which defaults to `kontakt@copyisto.com`.
 
 The credits lookup has no backend yet, so "Sprawdź swoje kredyty" shows in the navigation as "Wkrótce", like the blog.
 Its former mock-up (a popover and a drawer panel resolving a fake result) lives in git history, in `src/components/layout/CreditsPopover.astro`.
@@ -88,7 +89,12 @@ Each icon appears only when its variable is set.
 
 ## Analytics
 
-PostHog loads from `src/components/posthog.astro` and autocaptures clicks and pageviews.
+PostHog runs only with consent.
+`src/components/ConsentBanner.astro` asks on the first visit and stores the answer in the `cookie_consent` cookie (`granted` or `denied`, 12 months).
+Until the answer is `granted`, `src/lib/analytics.ts` does not even download `posthog-js`, so nothing is sent and nothing is stored on the device.
+Withdrawing consent through "Ustawienia cookies" in the footer opts out, stops session recording and deletes every `ph_` cookie and storage key.
+
+Once running, PostHog autocaptures clicks and pageviews and records sessions with inputs masked.
 On top of that, any element tagged `data-track="event_name"` sends that named event on click, with every other `data-track-*` attribute as a property.
 The tagged events are `form_cta_clicked`, `email_clicked`, `dm_clicked` and `social_clicked`, each with a `location`, `channel` or `network`.
 
@@ -99,7 +105,7 @@ Uploads accept files up to 20 MB, which exceeds a serverless request body limit,
 ## Known gaps
 
 - Team bios and two profile photos are placeholders in `src/content/team.ts`.
-- The legal documents have unfilled blanks awaiting review, and the numbering skips §5.
+- `/regulamin` redirects to the privacy policy through `public/_redirects`; `astro dev` ignores that file, so check redirects with `wrangler dev`.
 
 ## Deployment
 

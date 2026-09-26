@@ -4,7 +4,7 @@ import { EMAIL_ADDRESS, FACEBOOK_URL, INSTAGRAM_URL, TWITTER_URL } from 'astro:e
 export const routes = {
   home: '/',
   form: '/formularz',
-  terms: '/regulamin',
+  privacy: '/polityka-prywatnosci',
 } as const;
 
 /** Anchors that are linked to from more than one page. */
@@ -13,10 +13,6 @@ export const anchors = {
   why: `${routes.home}#dlaczego`,
   team: `${routes.home}#zespol`,
   credits: `${routes.form}#kredyty`,
-  terms: `${routes.terms}#regulamin`,
-  gdpr: `${routes.terms}#rodo`,
-  privacy: `${routes.terms}#prywatnosc`,
-  creditsClause: `${routes.terms}#kredyty`,
 } as const;
 
 export const CONTACT_EMAIL = EMAIL_ADDRESS;

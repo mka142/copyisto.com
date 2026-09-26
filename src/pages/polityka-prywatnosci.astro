@@ -1,0 +1,150 @@
+---
+import Base from '@/layouts/Base.astro';
+import Button from '@/components/primitives/Button.astro';
+import PageHeader from '@/components/layout/PageHeader.astro';
+import PageFooter from '@/components/layout/PageFooter.astro';
+import { cta, site } from '@/content/site';
+import { routes } from '@/lib/routes';
+// The policy lives as Markdown so the text stays exactly as the lawyer wrote it.
+import { Content } from '../../docs/polityka-prywatnosci.md';
+---
+
+<Base
+  title="Polityka prywatności"
+  description="Jak Copyisto przetwarza dane osobowe i korzysta z plików cookies."
+>
+  <div class="page">
+    <PageHeader logoHref={routes.home}>
+      <Button
+        href={cta.formHref}
+        variant="solid"
+        size="xs"
+        data-track="form_cta_clicked"
+        data-track-location="privacy_header"
+      >
+        {cta.openForm}
+      </Button>
+    </PageHeader>
+
+    <main class="page-main gutter">
+      <article class="policy">
+        <Content />
+      </article>
+    </main>
+
+    <PageFooter note={`${site.domain} · ${site.stage}`} />
+  </div>
+</Base>
+
+<style>
+  /* :global throughout: the Markdown renders outside this component's scope. */
+  .policy {
+    width: 100%;
+    max-width: 70ch;
+    margin-inline: auto;
+    padding-top: clamp(32px, 5vw, 64px);
+    padding-bottom: clamp(56px, 7vw, 96px);
+    color: var(--color-ink-soft);
+    font-size: var(--text-lg);
+    line-height: 1.72;
+  }
+
+  .policy :global(h1) {
+    margin: 0 0 12px;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 3.6vw, 50px);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  /* "Obowiązuje od …", the line under the title. */
+  .policy :global(h1 + p) {
+    margin: 0 0 clamp(32px, 4vw, 48px);
+    color: var(--color-faint);
+    font-size: var(--text-base);
+    letter-spacing: 0.02em;
+  }
+
+  .policy :global(h2) {
+    margin: clamp(36px, 4vw, 52px) 0 14px;
+    padding-top: clamp(24px, 3vw, 32px);
+    border-top: 1px solid var(--color-rule-18);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: clamp(21px, 2vw, 25px);
+    font-weight: 500;
+    line-height: 1.24;
+  }
+
+  .policy :global(p) {
+    margin: 0 0 14px;
+    text-wrap: pretty;
+  }
+
+  /* global.css strips list markers site-wide; the policy's numbering is content. */
+  .policy :global(ol) {
+    margin: 0;
+    padding-left: 1.6em;
+    list-style-type: decimal;
+  }
+
+  .policy :global(ol > li) {
+    margin-bottom: 12px;
+    padding-left: 0.3em;
+    text-wrap: pretty;
+  }
+
+  .policy :global(ol > li::marker) {
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The source's dashed sub-lists keep their dashes. */
+  .policy :global(ul) {
+    margin: 8px 0 0;
+    padding-left: 1.4em;
+    list-style-type: '– ';
+  }
+
+  .policy :global(ul > li) {
+    margin-bottom: 6px;
+  }
+
+  .policy :global(ul > li::marker) {
+    color: var(--color-muted);
+  }
+
+  .policy :global(strong) {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .policy :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .policy :global(table) {
+    width: 100%;
+    margin: 8px 0 20px;
+    border-collapse: collapse;
+    font-size: var(--text-base);
+  }
+
+  .policy :global(th),
+  .policy :global(td) {
+    padding: 10px 12px;
+    border: 1px solid var(--color-rule-25);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .policy :global(th) {
+    background: var(--color-field);
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+</style>

@@ -6,6 +6,10 @@ import { defineConfig, envField } from 'astro/config';
 // @astrojs/cloudflare, with that route opting out via `export const prerender = false`.
 export default defineConfig({
   site: 'https://copyisto.com',
+  // Emit formularz.html rather than formularz/index.html, so Cloudflare serves
+  // /formularz as is instead of redirecting every link to /formularz/.
+  build: { format: 'file' },
+  trailingSlash: 'never',
   env: {
     schema: {
       // Public contact address behind every "write to us" button and the legal text.
