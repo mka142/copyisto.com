@@ -17,7 +17,13 @@ import heroSvg from '@/assets/hero-illustration.svg?raw';
     <p class="hero-lead">{hero.lead}</p>
     <Eyebrow class="hero-eyebrow">{hero.eyebrow}</Eyebrow>
     <div class="hero-actions">
-      <Button href={cta.formHref} variant="primary" size="lg">
+      <Button
+        href={cta.formHref}
+        variant="primary"
+        size="lg"
+        data-track="form_cta_clicked"
+        data-track-location="hero"
+      >
         {cta.donate}
       </Button>
       <span class="hero-note">{hero.ctaNote}</span>

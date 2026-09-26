@@ -1,0 +1,120 @@
+---
+import Button from '@/components/primitives/Button.astro';
+import Eyebrow from '@/components/primitives/Eyebrow.astro';
+import { contact } from '@/content/landing';
+import { icons } from '@/lib/icons';
+import { CONTACT_EMAIL, mailto } from '@/lib/routes';
+
+interface Props {
+  /** Eyebrow, heading and lead, when the context asks for a different reason to write. */
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  /** Sent with the click to PostHog, so each placement reads separately. */
+  location: string;
+}
+
+const {
+  eyebrow = contact.eyebrow,
+  title = contact.title,
+  body = contact.body,
+  location,
+} = Astro.props;
+---
+
+<div class="contact" id="kontakt">
+  <div class="contact-intro">
+    <Eyebrow class="contact-eyebrow">{eyebrow}</Eyebrow>
+    <h2 class="display-sm contact-title">{title}</h2>
+    <p class="contact-body">{body}</p>
+  </div>
+
+  <div class="contact-col">
+    <Button
+      href={mailto}
+      variant="onDark"
+      size="md"
+      data-track="email_clicked"
+      data-track-location={location}
+    >
+      <span class="contact-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d={icons.email} />
+        </svg>
+        {contact.email}
+      </span>
+    </Button>
+    <span class="contact-address">{CONTACT_EMAIL}</span>
+  </div>
+</div>
+
+<style>
+  /* Lives on the dark footer and the dark card on the contribution page. */
+  .contact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: center;
+    gap: var(--space-column-sm);
+    scroll-margin-top: 72px;
+  }
+
+  .contact-intro,
+  .contact-col {
+    min-width: 0;
+  }
+
+  /* :global because this class is handed to a child component, and a
+     parent's scoped styles never reach a child's markup. */
+
+  :global(.contact-eyebrow) {
+    margin-bottom: 16px;
+  }
+
+  /* The house rust disappears on the dark footer; ember carries the same accent. */
+  :global(.contact-eyebrow .eyebrow-label) {
+    color: var(--color-ember);
+  }
+
+  :global(.contact-eyebrow .eyebrow-rule) {
+    background: var(--color-ember);
+  }
+
+  .contact-title {
+    margin-bottom: 12px;
+    color: var(--color-dark-fg-strong);
+  }
+
+  .contact-body {
+    max-width: 42ch;
+    margin: 0;
+    color: var(--color-dark-fg-soft);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .contact-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-2xs);
+  }
+
+  .contact-btn svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    fill: currentcolor;
+  }
+
+  .contact-address {
+    color: var(--color-dark-fg-faint);
+    font-size: var(--text-sm);
+  }
+</style>

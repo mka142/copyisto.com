@@ -121,16 +121,11 @@ export const why = {
     'z harmonii to krok w stronę lepszego algorytmu!',
 } as const;
 
-export const newsletter = {
-  eyebrow: 'Newsletter',
-  title: 'Obserwuj, jak model uczy się czytać.',
-  body: 'Co kilka tygodni krótka wiadomość o postępach: co model już rozpoznaje, a na czym wciąż się myli.',
-  submit: 'Zapisz się',
-  consent:
-    'Wyrażam zgodę na przetwarzanie mojego adresu e-mail w celu przesyłania newslettera o rozwoju projektu. ' +
-    'Zgodę mogę wycofać w każdej chwili.',
-  consentLink: 'Klauzula informacyjna',
-  confirmation: 'Zapisane. Napiszemy, gdy będzie o czym.',
+export const contact = {
+  eyebrow: 'Kontakt',
+  title: 'Masz pytanie albo pomysł? Napisz do nas.',
+  body: 'Odpowiadamy na każdą wiadomość: o zbiórce zeszytów, o modelu i o tym, jak możesz pomóc.',
+  email: 'Napisz do nas',
 } as const;
 
 export const closingCta = {

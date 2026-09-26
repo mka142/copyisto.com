@@ -75,8 +75,22 @@ The Instagram and Messenger buttons open a chat with the accounts named by the `
 Each button appears only when its variable is set.
 The upload form waits on the `feat/upload-form` branch.
 
-The two remaining forms, newsletter and credits lookup, are wired but not connected.
-They route through `src/lib/submissions.ts`, where each function currently resolves `{ ok: true }`.
+The newsletter waits on the `feat/newsletter` branch until its November launch.
+Merge that branch to bring the sign-up form back.
+Until then the landing footer and the contribution page offer a "write to us" e-mail button instead.
+Every e-mail button and the address in the legal text use the `EMAIL_ADDRESS` build variable, which defaults to `kontakt@copyisto.com`.
+
+The credits lookup is wired but not connected.
+It routes through `src/lib/submissions.ts`, which currently resolves `{ ok: true }`.
+
+The footer shows Facebook, Instagram and X icons for the profiles named by the `FACEBOOK_URL`, `INSTAGRAM_URL` and `TWITTER_URL` build variables.
+Each icon appears only when its variable is set.
+
+## Analytics
+
+PostHog loads from `src/components/posthog.astro` and autocaptures clicks and pageviews.
+On top of that, any element tagged `data-track="event_name"` sends that named event on click, with every other `data-track-*` attribute as a property.
+The tagged events are `form_cta_clicked`, `email_clicked`, `dm_clicked` and `social_clicked`, each with a `location`, `channel` or `network`.
 
 The site has no adapter yet.
 The upload endpoint will need one, for example `@astrojs/cloudflare`, with the route at `src/pages/api/` opting out of prerendering via `export const prerender = false` while the pages stay static.

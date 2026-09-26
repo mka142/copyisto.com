@@ -23,7 +23,13 @@ import { routes } from '@/lib/routes';
           <Button href={routes.home} variant="primary" size="md">
             {notFound.home}
           </Button>
-          <Button href={cta.formHref} variant="outline" size="md">
+          <Button
+            href={cta.formHref}
+            variant="outline"
+            size="md"
+            data-track="form_cta_clicked"
+            data-track-location="not_found"
+          >
             {cta.openForm}
           </Button>
         </div>

@@ -6,6 +6,8 @@
  * Note: the numbering jumps from §4 to §6 in the source. Left as found.
  */
 
+import { CONTACT_EMAIL } from '@/lib/routes';
+
 export type LegalBlock =
   { kind: 'paragraph'; text: string } | { kind: 'placeholder'; label: string; text: string };
 
@@ -140,7 +142,7 @@ export const legalDocuments: LegalDocument[] = [
     definitions: [
       {
         term: 'Administrator danych',
-        text: 'Administratorem danych osobowych jest [nazwa podmiotu, adres siedziby, dane rejestrowe]. Kontakt: kontakt@copyisto.com.',
+        text: `Administratorem danych osobowych jest [nazwa podmiotu, adres siedziby, dane rejestrowe]. Kontakt: ${CONTACT_EMAIL}.`,
         accents: ['[nazwa podmiotu, adres siedziby, dane rejestrowe]'],
       },
       {
@@ -213,7 +215,7 @@ export const legalDocuments: LegalDocument[] = [
       },
       {
         heading: 'Kontakt',
-        blocks: [P('W sprawach dotyczących danych osobowych pisz na kontakt@copyisto.com.')],
+        blocks: [P(`W sprawach dotyczących danych osobowych pisz na ${CONTACT_EMAIL}.`)],
       },
     ],
   },

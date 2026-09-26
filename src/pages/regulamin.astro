@@ -16,7 +16,13 @@ import { routes } from '@/lib/routes';
 >
   <div class="page">
     <PageHeader logoHref={routes.home}>
-      <Button href={cta.formHref} variant="solid" size="xs">
+      <Button
+        href={cta.formHref}
+        variant="solid"
+        size="xs"
+        data-track="form_cta_clicked"
+        data-track-location="legal_header"
+      >
         {cta.openForm}
       </Button>
     </PageHeader>
@@ -34,7 +40,14 @@ import { routes } from '@/lib/routes';
 
         <div class="legal-cta">
           <p class="legal-cta-question">{legalClosing.question}</p>
-          <Button href={cta.formHref} variant="primary" size="md" class="legal-cta-button">
+          <Button
+            href={cta.formHref}
+            variant="primary"
+            size="md"
+            class="legal-cta-button"
+            data-track="form_cta_clicked"
+            data-track-location="legal_aside"
+          >
             {cta.donateShort}
           </Button>
         </div>

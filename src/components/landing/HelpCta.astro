@@ -15,13 +15,26 @@ import { anchors, mailto } from '@/lib/routes';
         {closingCta.creditsLink}
       </a>
     </p>
-    <Button href={mailto} variant="onDarkOutline" size="sm" class="help-mail">
+    <Button
+      href={mailto}
+      variant="onDarkOutline"
+      size="sm"
+      class="help-mail"
+      data-track="email_clicked"
+      data-track-location="help_cta"
+    >
       {closingCta.emailCta}
     </Button>
   </div>
 
   <div class="help-cta">
-    <Button href={cta.formHref} variant="onDark" size="lg">
+    <Button
+      href={cta.formHref}
+      variant="onDark"
+      size="lg"
+      data-track="form_cta_clicked"
+      data-track-location="help_cta"
+    >
       {cta.donate}
     </Button>
     <span class="help-note">{closingCta.note}</span>

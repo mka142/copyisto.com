@@ -27,7 +27,14 @@ import { routes } from '@/lib/routes';
     <div class="landing-nav-credits">
       <CreditsPopover />
     </div>
-    <Button href={cta.formHref} variant="solid" size="xs" compact>
+    <Button
+      href={cta.formHref}
+      variant="solid"
+      size="xs"
+      compact
+      data-track="form_cta_clicked"
+      data-track-location="landing_header"
+    >
       {cta.openForm}
     </Button>
     <MobileNav />

@@ -13,10 +13,6 @@ async function pretendToSend(): Promise<SubmitResult> {
   return { ok: true };
 }
 
-export function submitNewsletter(_email: string): Promise<SubmitResult> {
-  return pretendToSend();
-}
-
 export function checkCredits(_email: string): Promise<SubmitResult> {
   return pretendToSend();
 }

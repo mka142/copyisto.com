@@ -1,12 +1,21 @@
 ---
 import { legalNav, site } from '@/content/site';
+import { icons } from '@/lib/icons';
+import { profiles } from '@/lib/routes';
 
 interface Props {
-  /** The Regulamin page shows only the wordmark and the note. */
+  /** The Regulamin page hides the legal links, since it is those documents. */
   links?: boolean;
   note: string;
 }
 const { links = true, note } = Astro.props;
+
+// Each profile shows only once its URL is set.
+const socials = [
+  { href: profiles.facebook, label: 'Facebook', icon: icons.facebook, network: 'facebook' },
+  { href: profiles.instagram, label: 'Instagram', icon: icons.instagram, network: 'instagram' },
+  { href: profiles.twitter, label: 'X (Twitter)', icon: icons.x, network: 'twitter' },
+].filter((s) => s.href);
 ---
 
 <div class="footer-bar">
@@ -18,6 +27,28 @@ const { links = true, note } = Astro.props;
           {item.label}
         </a>
       ))}
+    {socials.length > 0 && (
+      <ul class="footer-socials">
+        {socials.map((s) => (
+          <li>
+            <a
+              href={s.href}
+              class="footer-social"
+              target="_blank"
+              rel="noopener"
+              aria-label={s.label}
+              title={s.label}
+              data-track="social_clicked"
+              data-track-network={s.network}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d={s.icon} />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
     <span class="footer-note">{note}</span>
   </div>
 </div>
@@ -53,6 +84,32 @@ const { links = true, note } = Astro.props;
   .footer-link:hover {
     color: var(--color-dark-fg-strong);
     text-decoration: none;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: var(--gap-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-social {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    color: var(--color-dark-fg-soft);
+  }
+
+  .footer-social:hover {
+    color: var(--color-dark-fg-strong);
+  }
+
+  .footer-social svg {
+    width: 18px;
+    height: 18px;
+    fill: currentcolor;
   }
 
   .footer-note {

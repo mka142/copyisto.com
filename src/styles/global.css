@@ -80,7 +80,7 @@
   /* Section padding and grid gaps. Every value below appears more than
      once in the design; reach for one of these before inventing a number. */
   --space-section: clamp(56px, 8vw, 112px); /* full band, e.g. How it works */
-  --space-section-sm: clamp(44px, 6vw, 80px); /* lighter band, e.g. newsletter */
+  --space-section-sm: clamp(44px, 6vw, 80px); /* lighter band, e.g. credits */
   --space-section-form: clamp(48px, 7vw, 88px);
   --space-stack: clamp(40px, 5vw, 72px); /* between stacked articles */
   --space-column: clamp(32px, 5vw, 72px); /* between grid columns */
@@ -306,7 +306,8 @@ a:hover {
 
 /* ------------------------------------------------------- form controls */
 
-/* Shared by the upload form, the newsletter and the credits lookup.
+/* Shared by the upload form, the newsletter (both on their own branches)
+   and the credits lookup.
    Scoped styles cannot cross a component boundary, so these live here. */
 
 .field {

@@ -12,6 +12,16 @@ export default defineConfig({
       // page. Read at build time; a missing one hides its button.
       INSTAGRAM_USERNAME: envField.string({ context: 'client', access: 'public', optional: true }),
       MESSENGER_USERNAME: envField.string({ context: 'client', access: 'public', optional: true }),
+      // Public contact address behind every "write to us" button and the legal text.
+      EMAIL_ADDRESS: envField.string({
+        context: 'client',
+        access: 'public',
+        default: 'kontakt@copyisto.com',
+      }),
+      // Full profile URLs for the footer icons; a missing one hides its icon.
+      FACEBOOK_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      INSTAGRAM_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      TWITTER_URL: envField.string({ context: 'client', access: 'public', optional: true }),
       PUBLIC_POSTHOG_PROJECT_TOKEN: envField.string({
         context: 'client',
         access: 'public',
