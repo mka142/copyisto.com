@@ -51,6 +51,11 @@ const { id } = Astro.props;
       event.preventDefault();
       const res = await checkCredits(email.value);
       if (res.ok) {
+        window.posthog?.capture('credits_checked');
+        window.posthog?.logger?.info('credit lookup confirmation displayed', {
+          submission_type: 'credit_lookup',
+          confirmation_surface: 'credits_panel',
+        });
         form.hidden = true;
         result.hidden = false;
       }

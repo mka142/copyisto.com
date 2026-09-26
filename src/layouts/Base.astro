@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import PostHog from '@/components/posthog.astro';
 import { site } from '@/content/site';
 
 interface Props {
@@ -28,6 +29,7 @@ const fullTitle = title
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:type" content="website" />
+    <PostHog />
   </head>
   <body>
     <slot />

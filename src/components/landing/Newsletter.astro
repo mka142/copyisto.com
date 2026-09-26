@@ -70,6 +70,11 @@ const {
       event.preventDefault();
       const result = await submitNewsletter(email.value);
       if (result.ok) {
+        window.posthog?.capture('newsletter_submitted');
+        window.posthog?.logger?.info('newsletter confirmation displayed', {
+          submission_type: 'newsletter',
+          confirmation_surface: 'landing',
+        });
         form.hidden = true;
         sent.hidden = false;
       }
