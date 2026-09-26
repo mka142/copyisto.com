@@ -137,15 +137,3 @@ export const closingCta = {
   emailCta: 'Napisz e-mail',
   note: 'Przez najbliższy miesiąc zbieramy zeszyty we Wrocławiu. W zamian bezpłatny wczesny dostęp na 12 miesięcy od uruchomienia narzędzia.',
 } as const;
-
-export const creditsPopover = {
-  label: 'Stan Twoich kredytów',
-  prompt: 'Podaj adres, z którego wysyłałeś/aś materiały.',
-  submit: 'Sprawdź',
-  resultLabel: 'Twoje konto',
-  result:
-    'Mamy Twoje materiały. Kredyty są już naliczane – przelicznik podamy przy uruchomieniu narzędzia.',
-  reset: 'Sprawdź inny adres',
-} as const;
-
-export const EMAIL_PLACEHOLDER = 'twoj@email.pl';

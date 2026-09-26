@@ -16,7 +16,10 @@ import { anchors } from '@/lib/routes';
       {credits.points.map((point) => (
         <li class="credits-point">
           <span class="ornament ornament-xs credits-point-num">{point.number}</span>
-          <p class="credits-point-body">{point.body}</p>
+          <p class="credits-point-body">
+            {point.body}
+            {'soon' in point && <span class="nav-soon-badge credits-soon">Wkrótce</span>}
+          </p>
         </li>
       ))}
       <li class="credits-footnote">
@@ -41,7 +44,7 @@ import { anchors } from '@/lib/routes';
 
   .credits-card {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     align-items: start;
     gap: var(--space-column-sm);
     padding: var(--space-card);
@@ -98,6 +101,12 @@ import { anchors } from '@/lib/routes';
     color: var(--color-ink-soft);
     font-size: var(--text-body);
     line-height: 1.62;
+  }
+
+  .credits-soon {
+    margin-left: 8px;
+    vertical-align: 2px;
+    white-space: nowrap;
   }
 
   .credits-footnote {

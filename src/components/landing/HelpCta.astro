@@ -44,7 +44,7 @@ import { anchors, mailto } from '@/lib/routes';
 <style>
   .help {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
     align-items: start;
     gap: clamp(36px, 5vw, 72px);
     padding: var(--space-card);
@@ -105,7 +105,9 @@ import { anchors, mailto } from '@/lib/routes';
     margin-top: 26px;
   }
 
+  /* Centred against the copy beside it; the grid keeps the copy top-aligned. */
   .help-cta {
+    align-self: center;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

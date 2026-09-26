@@ -19,6 +19,7 @@ export const primaryNav: NavLink[] = [
   { href: anchors.why, label: 'Dlaczego harmonia?' },
   { href: anchors.team, label: 'Zespół' },
   { href: '#', label: 'Blog', soon: true },
+  { href: '#', label: 'Sprawdź swoje kredyty', soon: true },
 ];
 
 export const legalNav: NavLink[] = [
@@ -31,7 +32,6 @@ export const cta = {
   openForm: 'Przekaż zeszyt',
   donate: 'Podaruj swojemu zeszytowi z harmonii drugie życie',
   donateShort: 'Podaruj zeszytowi drugie życie',
-  checkCredits: 'Sprawdź swoje kredyty',
   formHref: routes.form,
 } as const;
 

@@ -1,7 +1,6 @@
 ---
 import Button from '@/components/primitives/Button.astro';
 import Logo from './Logo.astro';
-import CreditsPopover from './CreditsPopover.astro';
 import MobileNav from './MobileNav.astro';
 import { cta, primaryNav } from '@/content/site';
 import { routes } from '@/lib/routes';
@@ -23,9 +22,6 @@ import { routes } from '@/lib/routes';
           </a>
         ),
       )}
-    </div>
-    <div class="landing-nav-credits">
-      <CreditsPopover />
     </div>
     <Button
       href={cta.formHref}
@@ -52,6 +48,16 @@ import { routes } from '@/lib/routes';
     gap: var(--gap-2xl);
     padding-block: 16px;
     border-bottom: 1px solid var(--color-rule);
+  }
+
+  /* The frosted glass lives on a pseudo-element: backdrop-filter on the header
+     itself would make it the containing block for the mobile drawer's fixed
+     scrim, shrinking the scrim to the header's height. */
+  .landing-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background: var(--color-paper-88);
     backdrop-filter: blur(8px);
   }
@@ -91,10 +97,9 @@ import { routes } from '@/lib/routes';
     white-space: nowrap;
   }
 
-  /* Below 1090px the links and the credits button move into the drawer. */
+  /* Below 1090px the links move into the drawer. */
   @media (max-width: 1089px) {
-    .landing-nav-links,
-    .landing-nav-credits {
+    .landing-nav-links {
       display: none;
     }
   }

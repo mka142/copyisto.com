@@ -53,4 +53,12 @@ import { routes } from '@/lib/routes';
     color: var(--color-rust);
     text-decoration: none;
   }
+
+  /* The smallest phones can't fit the wordmark and the link on one line. */
+  @media (max-width: 359px) {
+    .header-back {
+      white-space: normal;
+      text-align: right;
+    }
+  }
 </style>

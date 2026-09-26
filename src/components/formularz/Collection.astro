@@ -1,7 +1,6 @@
 ---
 import Button from '@/components/primitives/Button.astro';
 import Eyebrow from '@/components/primitives/Eyebrow.astro';
-import Contact from '@/components/landing/Contact.astro';
 import { collection } from '@/content/formularz';
 import { icons } from '@/lib/icons';
 import { mailto, social } from '@/lib/routes';
@@ -17,7 +16,7 @@ const channels = [
 
 <section class="collection gutter" id="zbiorka">
   <div class="collection-grid">
-    <div class="collection-card collection-local">
+    <div class="collection-local">
       <Eyebrow class="collection-eyebrow">{local.eyebrow}</Eyebrow>
       <h2 class="display-sm collection-title">{local.title}</h2>
       <p class="collection-body">{local.body}</p>
@@ -56,14 +55,21 @@ const channels = [
       </div>
     </div>
 
-    <div class="collection-card collection-remote">
-      <Contact
-        eyebrow={remote.eyebrow}
-        title={remote.title}
-        body={remote.body}
-        location="collection_remote"
-      />
-    </div>
+    <aside class="collection-remote">
+      <p class="collection-remote-eyebrow">{remote.eyebrow}</p>
+      <h3 class="collection-remote-title">{remote.title}</h3>
+      <p class="collection-remote-body">
+        {remote.body}{' '}
+        <a
+          href={mailto}
+          class="prose-link"
+          data-track="email_clicked"
+          data-track-location="collection_remote"
+        >
+          {remote.email}
+        </a>
+      </p>
+    </aside>
   </div>
 </section>
 
@@ -75,32 +81,59 @@ const channels = [
     scroll-margin-top: 24px;
   }
 
+  /* Wrocław is the only way in this month, so it takes the lead column and
+     the remote note sits beside it as an aside. */
   .collection-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
     gap: var(--gap-2xl);
   }
 
-  .collection-card {
-    min-width: 0;
-    padding: var(--space-card);
-    box-shadow: 5px 6px 0 var(--color-ink-12);
+  @media (min-width: 900px) {
+    .collection-grid {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    }
   }
 
   .collection-local {
+    min-width: 0;
+    padding: var(--space-card);
     border: 1px solid var(--color-rule-30);
     background: var(--color-bright);
+    box-shadow: 5px 6px 0 var(--color-ink-12);
   }
 
   .collection-remote {
-    background: var(--color-dark);
-    color: var(--color-dark-fg);
+    min-width: 0;
+    padding: var(--space-card-sm);
+    border: 1px dashed var(--color-rule-25);
   }
 
-  /* The contact block lays itself out in two columns for the wide footer;
-     in a half-width card intro and button stack. */
-  .collection-remote :global(.contact) {
-    grid-template-columns: minmax(0, 1fr);
+  .collection-remote-eyebrow {
+    margin: 0 0 10px;
+    color: var(--color-muted);
+    font-size: var(--text-note);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .collection-remote-title {
+    margin: 0 0 8px;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .collection-remote-body {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    text-wrap: pretty;
   }
 
   /* :global because this class is handed to a child component, and a
@@ -123,14 +156,31 @@ const channels = [
     text-wrap: pretty;
   }
 
+  /* E-mail leads on its own row. The direct-message buttons share the next at
+     equal widths only while both labels fit on one line, and stack otherwise,
+     so a wrapped label never leaves the pair at mismatched heights. */
   .collection-actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+
+    /* 240px holds "Napisz na Messengerze" on one line at the trimmed padding. */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
     gap: var(--gap-sm);
   }
 
+  /* :global because the buttons are Button components, outside this scope. */
+  .collection-actions > :global(:first-child) {
+    grid-column: 1 / -1;
+  }
+
+  /* Trimmed from the md button's 26px so the pair fits side by side sooner. */
+  .collection-actions :global(.btn.btn-md) {
+    padding-inline: 18px;
+  }
+
+  /* Labels never wrap, so paired buttons keep one height. */
   .collection-btn {
     display: inline-flex;
+    white-space: nowrap;
     align-items: center;
     gap: var(--gap-2xs);
   }

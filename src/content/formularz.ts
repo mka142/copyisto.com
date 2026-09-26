@@ -37,7 +37,8 @@ export const collection = {
   remote: {
     eyebrow: 'Spoza Wrocławia?',
     title: 'Formularz online pojawi się wkrótce.',
-    body: 'Napisz do nas, a damy znać, gdy będzie można przesłać skany z dowolnego miejsca.',
+    body: 'Damy znać, gdy będzie można przesłać skany z dowolnego miejsca.',
+    email: 'Napisz do nas',
   },
 } as const;
 
@@ -59,6 +60,7 @@ export const credits = {
     {
       number: '03',
       body: 'Stan konta sprawdzisz w każdej chwili przyciskiem „Sprawdź swoje kredyty” na stronie głównej.',
+      soon: true,
     },
   ],
   footnoteLead:

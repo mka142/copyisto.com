@@ -71,17 +71,17 @@ Components reference them with `var(--…)` and never write literal values.
 ## Forms
 
 Notebooks are collected in person in Wrocław for now, so the contribution page offers e-mail and direct messages instead of an upload.
-The Instagram and Messenger buttons open a chat with the accounts named by the `INSTAGRAM_USERNAME` and `MESSENGER_USERNAME` build variables (see `.env.example`).
+The Instagram and Messenger buttons open a chat with the accounts behind the `INSTAGRAM_URL` and `FACEBOOK_URL` build variables (see `.env.example`).
 Each button appears only when its variable is set.
 The upload form waits on the `feat/upload-form` branch.
 
 The newsletter waits on the `feat/newsletter` branch until its November launch.
 Merge that branch to bring the sign-up form back.
-Until then the landing footer and the contribution page offer a "write to us" e-mail button instead.
+Until then the landing footer and the contribution page offer a "write to us" e-mail link instead.
 Every e-mail button and the address in the legal text use the `EMAIL_ADDRESS` build variable, which defaults to `kontakt@copyisto.com`.
 
-The credits lookup is wired but not connected.
-It routes through `src/lib/submissions.ts`, which currently resolves `{ ok: true }`.
+The credits lookup has no backend yet, so "Sprawdź swoje kredyty" shows in the navigation as "Wkrótce", like the blog.
+Its former mock-up (a popover and a drawer panel resolving a fake result) lives in git history, in `src/components/layout/CreditsPopover.astro`.
 
 The footer shows Facebook, Instagram and X icons for the profiles named by the `FACEBOOK_URL`, `INSTAGRAM_URL` and `TWITTER_URL` build variables.
 Each icon appears only when its variable is set.

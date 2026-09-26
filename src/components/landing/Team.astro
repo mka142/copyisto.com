@@ -43,7 +43,7 @@ import { team, teamStatement } from '@/content/team';
 
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: clamp(28px, 4vw, 56px);
     margin-bottom: clamp(36px, 4vw, 56px);
   }
